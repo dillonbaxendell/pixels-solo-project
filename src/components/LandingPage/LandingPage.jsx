@@ -18,8 +18,8 @@ function LandingPage() {
       <h2>{heading}</h2>
 
       <div className="grid">
-        <div className="grid-col grid-col_8">
-          <p>
+        {/* <div className="grid-col grid-col_8"> */}
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
             ut ex molestie blandit. Etiam et turpis sit amet risus mollis
@@ -49,8 +49,8 @@ function LandingPage() {
             sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
             non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
             amet nisi.
-          </p>
-        </div>
+          </p> */}
+        {/* </div> */}
         <div className="grid-col grid-col_4">
           <RegisterForm />
 
