@@ -21,8 +21,11 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
 
+  //Takes us to the start of the MoodForm
   const handleNextPage = () => {
-    history.push('/MoodForm')
+    console.log('clicked Next');
+    
+    history.push('/reflection');
   }
 
   return (
@@ -32,7 +35,7 @@ function UserPage() {
       <div>
         <h4>An affirmation message will go here.</h4>
       </div>
-      <LogOutButton className="btn" />
+      {/* <LogOutButton className="btn" /> */}
       <div className={classes.root}>
       <IconButton >
         <ArrowForwardIosOutlinedIcon onClick={handleNextPage}/>
