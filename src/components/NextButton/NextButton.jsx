@@ -13,21 +13,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NextButton({page}) {
+function NextButton({pageRoute}) {
     const classes = useStyles();
     const history = useHistory();
 
       //Takes us to the start of the MoodForm
-  const handleNextPage = (page) => {
+  const handleNextPage = (pageRoute) => {
     console.log("clicked Next");
 
-    history.push(page);
+    history.push(pageRoute);
   };
 
   return (
     <>
       <div className={classes.root}>
-        <IconButton onClick={() => handleNextPage(page)}>
+        <IconButton onClick={() => handleNextPage(pageRoute)}>
           <ArrowForwardIosOutlinedIcon />
         </IconButton>
       </div>

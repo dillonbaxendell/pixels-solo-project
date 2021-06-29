@@ -19,7 +19,7 @@ function UserPage() {
         <h4>An affirmation message will go here.</h4>
       </div>
       {/* <LogOutButton className="btn" /> */}
-      <NextButton  page="/reflection/1"/>
+      <NextButton  pageRoute="/reflection/1"/>
     </div>
   );
 }
