@@ -6,9 +6,10 @@ import PreviousButton from '../PreviousButton/PreviousButton';
 
 function WordAssociations() {
     const dispatch = useDispatch();
-    const history = useHistory();
 
+    //Testing to see what the word associations are:
     const wordAssociations = useSelector( store => store.wordAssociations);
+    //Grab MoodValue from Redux to display as reference for User
     const moodValue = useSelector( store => store.moodValue);
     //This sets the individual word, just in case there are multiple
     const [word, setWord] = useState('');
@@ -27,6 +28,7 @@ function WordAssociations() {
 
     //Initiates a POST to add a word and also sets the word associations
     const handleAddWord = () => {
+        //Adds the word to the database and wordList (initialize POST)
         dispatch({
             type: 'ADD_WORD',
             payload: word
@@ -43,6 +45,7 @@ function WordAssociations() {
     }
 
     const handleSelect = (wordName) => {
+        //Sets the word associations in Redux so we can access it later
         dispatch({
             type: 'SET_ASSOCIATIONS',
             payload: wordName
