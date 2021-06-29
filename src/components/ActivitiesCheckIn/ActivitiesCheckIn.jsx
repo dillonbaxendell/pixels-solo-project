@@ -11,10 +11,14 @@ function ActivitiesCheckIn() {
   //Grab the whole Activity List from Redux
   const activitiesList = useSelector((store) => store.activitiesList);
   console.log('Activities list is:', activitiesList);
+  //Grab the whole Relationship List from Redux
+  const relationshipList = useSelector((store) => store.relationshipList);
+  console.log('Relationship list is:', relationshipList);
 
   //On page load, do this:
   useEffect(() => {
     dispatch({ type: "FETCH_ACTIVITIES" });
+    dispatch({ type: "FETCH_RELATIONSHIPS"});
   }, []);
 
 
@@ -37,7 +41,11 @@ function ActivitiesCheckIn() {
         </div>
         <div>
           <h4>who you were with</h4>
-          <p>relationship list goes here</p>
+          <ul>
+              {relationshipList.map( relationship => {
+                  return <li key={relationship.id}>{relationship.name}</li>
+              })}
+          </ul>
         </div>
         <div>
           <PreviousButton />
