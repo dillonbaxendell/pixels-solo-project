@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import NextButton from '../NextButton/NextButton';
+import PreviousButton from '../PreviousButton/PreviousButton';
 
 function WordAssociations() {
     const dispatch = useDispatch();
@@ -62,6 +64,10 @@ function WordAssociations() {
             return <li onClick={() => handleSelect(word.word_name)} key={word.id}>{word.word_name}</li>;
           })}
         </ul>
+      </div>
+      <div>
+          <PreviousButton />
+          <NextButton pageRoute="/reflection/3" />
       </div>
     </>
   );
