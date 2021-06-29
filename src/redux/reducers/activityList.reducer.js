@@ -1,4 +1,4 @@
-const activitiesListReducer = (state = [], action) => {
+const activityListReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_ACTIVITIES' :
             return action.payload;
@@ -7,4 +7,4 @@ const activitiesListReducer = (state = [], action) => {
     }
 }
 
-export default activitiesListReducer;
+export default activityListReducer;

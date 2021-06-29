@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 import ActivityModal from "../ActivityModal/ActivityModal";
+import RelationshipModal from "../RelationshipModal/RelationshipModal";
 
 function ActivitiesCheckIn() {
   const dispatch = useDispatch();
@@ -12,8 +13,8 @@ function ActivitiesCheckIn() {
   const moodValue = useSelector((store) => store.moodValue);
 
   //Grab the whole Activity List from Redux
-  const activitiesList = useSelector((store) => store.activitiesList);
-  console.log('Activities list is:', activitiesList);
+  const activityList = useSelector((store) => store.activityList);
+  console.log('Activities list is:', activityList);
 
   //Grab the whole Relationship List from Redux
   const relationshipList = useSelector((store) => store.relationshipList);
@@ -38,7 +39,7 @@ function ActivitiesCheckIn() {
         <div>
           <h4>what you were doing</h4>
           <ul>
-              {activitiesList.map( activity => {
+              {activityList.map( activity => {
                   return <li key={activity.id}>{activity.activity_name}</li>
               })}
           </ul>
@@ -51,6 +52,7 @@ function ActivitiesCheckIn() {
                   return <li key={relationship.id}>{relationship.name}</li>
               })}
           </ul>
+          <RelationshipModal />
         </div>
         <div>
           <PreviousButton />

@@ -23,6 +23,20 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // POST route code here
+  const newRelationship = req.body;
+  console.log('newRelationship is:', newRelationship);
+
+  const queryText = `INSERT INTO "relationship" ("name", "relationship_to_user", "relationship_icon", "user_id") VALUES ($1, $2, $3, $4);`
+
+  const values = [req.body.name, req.body.relationship_to_user, req.body.relationship_icon, req.body.user_id];
+
+  pool.query(queryText, values)
+  .then( () => {
+      res.sendStatus(201);
+  })
+  .catch( error => {
+      console.log('Error in postRelationship', error);
+  })
 });
 
 module.exports = router;

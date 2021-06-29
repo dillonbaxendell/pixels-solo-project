@@ -4,7 +4,7 @@ import user from './user.reducer';
 import wordList from './wordList.reducer';
 import moodValue from './moodValue.reducer';
 import wordAssociations from './wordAssociations.reducer';
-import activitiesList from './activitiesList.reducer';
+import activityList from './activityList.reducer';
 import relationshipList from './relationshipList.reducer';
 import activityAssociations from './activityAssociations.reducer';
 
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   wordList, // contains the word associations list
   moodValue, // sets the moodValue for the reflection
   wordAssociations, // contains the word associations for the reflection
-  activitiesList, // contains the activities list
+  activityList, // contains the activities list
   relationshipList, // contains the relationship list of the User
   activityAssociations, // contains the activities associated with the reflection being made
 });
