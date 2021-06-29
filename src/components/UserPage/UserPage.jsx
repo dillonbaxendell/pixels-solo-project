@@ -25,7 +25,7 @@ function UserPage() {
   const handleNextPage = () => {
     console.log('clicked Next');
     
-    history.push('/reflection');
+    history.push('/reflection/1');
   }
 
   return (
