@@ -6,27 +6,41 @@ function WordAssociations() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const wordAssociations = useSelector( store => store.wordAssociations);
+    const moodValue = useSelector( store => store.moodValue);
+    //This sets the individual word, just in case there are multiple
     const [word, setWord] = useState('');
-    console.log('the setWord is: ', word);
 
-    const wordList = useSelector( store => store.word);
+    console.log('the associated words are: ', wordAssociations);
+
+    //Grabbing the whole wordList from Redux
+    const wordList = useSelector( store => store.wordList);
     console.log('Word List is:', wordList);
 
+    //On page load, do this:
     useEffect(() => {
         dispatch({type: 'FETCH_WORDS'})
     }, []);
 
+
+    //Initiates a POST to add a word and also sets the word associations
     const handleAddWord = () => {
         dispatch({
             type: 'ADD_WORD',
             payload: word
         });
+
+        //This sets the word associations for this reflection so we can grab it later
+        dispatch({
+            type: 'SET_ASSOCIATIONS',
+            payload: word
+        })
     }
 
   return (
     <>
       <div id="word-associations">
-        <h2>Mood value goes here</h2>
+        <h2>{moodValue}</h2>
 
         <h2>Word Associations:</h2>
 
