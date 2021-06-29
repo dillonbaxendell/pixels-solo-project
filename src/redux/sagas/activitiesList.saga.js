@@ -15,8 +15,24 @@ function* fetchActivities() {
     }
 }
 
+//WORKER SAGA: will be fired on 'ADD_ACTIVITY'
+function* postActivity(action) {
+    try {
+        let newActivity = action.payload;
+        console.log('newActivity is:', newActivity);
+        //POST request to add new activity
+        yield axios.post('/api/activity', {activity_name: newActivity});
+
+        yield put({ type: 'FETCH_ACTIVITIES' });
+    } catch (error) {
+        console.log('Activity POST request failed', error);
+    }
+}
+
+
 function* activitiesListSaga() {
     yield takeLatest('FETCH_ACTIVITIES', fetchActivities);
+    yield takeLatest('ADD_ACTIVITY', postActivity);
 }
 
 export default activitiesListSaga;

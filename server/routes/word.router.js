@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
   const newWord = req.body.word_name;
-  console.log('newWord is :', req.body.word_name);
+  console.log('newWord is :', newWord);
 
   const queryText = `INSERT INTO "word" ("word_name") VALUES ($1);`;
 

@@ -6,6 +6,7 @@ import moodValue from './moodValue.reducer';
 import wordAssociations from './wordAssociations.reducer';
 import activitiesList from './activitiesList.reducer';
 import relationshipList from './relationshipList.reducer';
+import activityAssociations from './activityAssociations.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   wordAssociations, // contains the word associations for the reflection
   activitiesList, // contains the activities list
   relationshipList, // contains the relationship list of the User
+  activityAssociations, // contains the activities associated with the reflection being made
 });
 
 export default rootReducer;
