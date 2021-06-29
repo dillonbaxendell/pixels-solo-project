@@ -35,6 +35,16 @@ function WordAssociations() {
             type: 'SET_ASSOCIATIONS',
             payload: word
         })
+
+        //Clear input field
+        setWord('');
+    }
+
+    const handleSelect = (wordName) => {
+        dispatch({
+            type: 'SET_ASSOCIATIONS',
+            payload: wordName
+        })
     }
 
   return (
@@ -49,7 +59,7 @@ function WordAssociations() {
 
         <ul>
           {wordList.map((word) => {
-            return <li key={word.id}>{word.word_name}</li>;
+            return <li onClick={() => handleSelect(word.word_name)} key={word.id}>{word.word_name}</li>;
           })}
         </ul>
       </div>
