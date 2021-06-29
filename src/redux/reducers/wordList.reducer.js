@@ -1,4 +1,4 @@
-const wordReducer = (state = [], action) => {
+const wordListReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_WORDS' :
             return action.payload;
@@ -9,4 +9,4 @@ const wordReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default wordReducer;
+export default wordListReducer;

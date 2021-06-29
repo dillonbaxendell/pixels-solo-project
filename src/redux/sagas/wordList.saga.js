@@ -17,9 +17,9 @@ function* fetchWords() {
 
 
 
-function* wordSaga() {
+function* wordListSaga() {
     yield takeLatest('FETCH_WORDS', fetchWords);
   }
 
 
-export default wordSaga;
+export default wordListSaga;

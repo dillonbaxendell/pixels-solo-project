@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import word from './word.reducer';
+import wordList from './wordList.reducer';
 import moodValue from './moodValue.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -13,7 +13,7 @@ import moodValue from './moodValue.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  word, //contains the word associations list
+  wordList, //contains the word associations list
   moodValue, //sets the moodValue for the reflection
 });
 
