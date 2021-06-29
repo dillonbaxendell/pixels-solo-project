@@ -5,8 +5,12 @@ import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 
 function ActivitiesCheckIn() {
+  const dispatch = useDispatch();
   //Grab MoodValue from Redux to display as reference for User
   const moodValue = useSelector((store) => store.moodValue);
+  //Grab the whole Activity List from Redux
+  const activitiesList = useSelector((store) => store.activitiesList);
+  console.log('Activities list is:', activitiesList);
 
   //On page load, do this:
   useEffect(() => {
@@ -25,7 +29,11 @@ function ActivitiesCheckIn() {
         </div>
         <div>
           <h4>what you were doing</h4>
-          <p>activity list goes here</p>
+          <ul>
+              {activitiesList.map( activity => {
+                  return <li key={activity.id}>{activity.activity_name}</li>
+              })}
+          </ul>
         </div>
         <div>
           <h4>who you were with</h4>
