@@ -21,6 +21,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import MoodCheckIn from "../MoodCheckIn/MoodCheckIn";
 import WordAssociations from "../WordAssociations/WordAssociations";
+import ActivitiesCheckIn from "../ActivitiesCheckIn/ActivitiesCheckIn";
 
 import "./App.css";
 
@@ -109,6 +110,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/reflection/2">
             <WordAssociations />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/reflection/3">
+            <ActivitiesCheckIn />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

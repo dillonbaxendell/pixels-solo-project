@@ -23,7 +23,7 @@ function* postWord(action) {
         //POST request to add new word
         yield axios.post('/api/word', {word_name: newWord});
         
-        yield put({ type: 'FETCH_WORDS' })
+        yield put({ type: 'FETCH_WORDS' });
     } catch (error) {
         console.log('Word POST request failed', error);
     }
