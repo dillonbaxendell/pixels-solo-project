@@ -15,10 +15,25 @@ function* fetchWords() {
     }
 }
 
+//WORKER SAGA: will be fired on 'ADD_WORD'
+function* postWord(action) {
+    try {
+        let newWord = action.payload;
+        console.log('action.payload:', action.payload)
+        //POST request to add new word
+        yield axios.post('/api/word', {word_name: newWord});
+        
+        yield put({ type: 'FETCH_WORDS' })
+    } catch (error) {
+        console.log('Word POST request failed', error);
+    }
+}
+
 
 
 function* wordListSaga() {
     yield takeLatest('FETCH_WORDS', fetchWords);
+    yield takeLatest('ADD_WORD', postWord);
   }
 
 

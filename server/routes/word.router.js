@@ -23,6 +23,18 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // POST route code here
+  const newWord = req.body.word_name;
+  console.log('newWord is :', req.body.word_name);
+
+  const queryText = `INSERT INTO "word" ("word_name") VALUES ($1);`;
+
+  pool.query(queryText, [newWord])
+  .then( () => {
+      res.sendStatus(201);
+  })
+  .catch( error => {
+      console.log('Error in postWord', error);
+  })
 });
 
 module.exports = router;
