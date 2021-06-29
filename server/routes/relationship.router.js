@@ -7,9 +7,9 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "relationship" WHERE "relationship".user_id = 2;`;
+  const queryText = `SELECT * FROM "relationship" WHERE "relationship".user_id = $1;`;
 
-  pool.query(queryText)
+  pool.query(queryText, [req.user.id])
   .then( result => {
       res.send(result.rows);
   })
