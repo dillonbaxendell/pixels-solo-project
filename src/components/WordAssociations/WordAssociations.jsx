@@ -44,11 +44,11 @@ function WordAssociations() {
         setWord('');
     }
 
-    const handleSelect = (wordName) => {
+    const handleSelect = (wordObject) => {
         //Sets the word associations in Redux so we can access it later
         dispatch({
             type: 'SET_ASSOCIATIONS',
-            payload: wordName
+            payload: wordObject
         })
     }
 
@@ -64,7 +64,7 @@ function WordAssociations() {
 
         <ul>
           {wordList.map((word) => {
-            return <li onClick={() => handleSelect(word.word_name)} key={word.id}>{word.word_name}</li>;
+            return <li onClick={() => handleSelect({id: word.id, word_name: word.word_name})} key={word.id}>{word.word_name}</li>;
           })}
         </ul>
       </div>
