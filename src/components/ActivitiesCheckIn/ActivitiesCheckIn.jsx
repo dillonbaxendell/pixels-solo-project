@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import NextButton from "../NextButton/NextButton";
+import SubmitButton from "../SubmitButton/SubmitButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 import ActivityModal from "../ActivityModal/ActivityModal";
 import RelationshipModal from "../RelationshipModal/RelationshipModal";
@@ -9,17 +9,20 @@ import RelationshipModal from "../RelationshipModal/RelationshipModal";
 function ActivitiesCheckIn() {
   const dispatch = useDispatch();
 
+  const user = useSelector( store => store.user)
+  const wordAssociations = useSelector( store => store.wordAssociations);
+
   //TESTING to see what activity associations are:
   const activityAssociations = useSelector(
     (store) => store.activityAssociations
   );
   console.log("the associated activities are: ", activityAssociations);
 
-    //TESTING to see what activity associations are:
-    const relationshipAssociations = useSelector(
-        (store) => store.relationshipAssociations
-      );
-      console.log("the associated relationships are: ", relationshipAssociations);
+  //TESTING to see what activity associations are:
+  const relationshipAssociations = useSelector(
+    (store) => store.relationshipAssociations
+  );
+  console.log("the associated relationships are: ", relationshipAssociations);
 
   //Grab MoodValue from Redux to display as reference for User
   const moodValue = useSelector((store) => store.moodValue);
@@ -31,6 +34,15 @@ function ActivitiesCheckIn() {
   //Grab the whole Relationship List from Redux
   const relationshipList = useSelector((store) => store.relationshipList);
   console.log("Relationship list is:", relationshipList);
+
+  const masterObject = {
+      user_id: user.id,
+      mood: moodValue,
+      word_assoc: wordAssociations,
+      activity_assoc: activityAssociations,
+      relation_assoc: relationshipAssociations
+  }
+  console.log('Master Object is:', masterObject);
 
   //On page load, do this:
   useEffect(() => {
@@ -47,11 +59,17 @@ function ActivitiesCheckIn() {
   };
 
   const selectRelationship = (relationshipObject) => {
-      //Sets the relationship associations in Redux so we can access it later
-      dispatch({
-          type: "SET_RELATION_ASSOC",
-          payload: relationshipObject
-      })
+    //Sets the relationship associations in Redux so we can access it later
+    dispatch({
+      type: "SET_RELATION_ASSOC",
+      payload: relationshipObject,
+    });
+  };
+
+  const handleSubmit = () => {
+      console.log('Clicked submit!');
+
+
   }
 
   return (
@@ -94,7 +112,7 @@ function ActivitiesCheckIn() {
                     selectRelationship({
                       id: relationship.id,
                       name: relationship.name,
-                      relationship_to_user: relationship.relationship_to_user
+                      relationship_to_user: relationship.relationship_to_user,
                     })
                   }
                   key={relationship.id}
@@ -108,8 +126,8 @@ function ActivitiesCheckIn() {
         </div>
         <div>
           <PreviousButton />
-          <NextButton pageRoute="/daily" />
         </div>
+          <SubmitButton handleSubmit={handleSubmit}/>
       </div>
     </>
   );
