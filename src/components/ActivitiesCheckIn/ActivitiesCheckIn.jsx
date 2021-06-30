@@ -69,7 +69,10 @@ function ActivitiesCheckIn() {
   const handleSubmit = () => {
       console.log('Clicked submit!');
 
-
+    dispatch({
+        type: 'SUBMIT_REFLECTION',
+        payload: masterObject
+    })
   }
 
   return (

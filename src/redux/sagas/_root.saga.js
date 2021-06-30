@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects';
 import activitiesListSaga from './activitiesList.saga';
 import loginSaga from './login.saga';
+import reflectionSaga from './reflection.saga';
 import registrationSaga from './registration.saga';
 import relationshipListSaga from './relationshipList.saga';
 import userSaga from './user.saga';
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     wordListSaga(),
     activitiesListSaga(),
-    relationshipListSaga()
+    relationshipListSaga(),
+    reflectionSaga(),
   ]);
 }
