@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 
 function DailyOverview() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const todaysReflections = useSelector( store => store.todaysReflections);
   const yesterdaysReflections = useSelector( store => store.yesterdaysReflections);
@@ -14,10 +16,14 @@ function DailyOverview() {
     dispatch({type: 'FETCH_YESTERDAY', payload: 'yesterday'})
   }, [])
 
-const handleEdit = (reflection) => {
+const handleEdit = (reflectionToEdit) => {
     console.log('clicked edit!');
 
-    dispatch({ type: 'SET_EDIT', payload: reflection });
+    //Save the reflectionToEdit in a reducer
+    dispatch({ type: 'SET_EDIT', payload: reflectionToEdit });
+
+    //Go to EditForm
+    history.push('/daily/edit');
 
 }
 
