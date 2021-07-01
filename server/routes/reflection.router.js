@@ -1,16 +1,19 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
  * POST route template
  */
-router.post('/overview', (req, res) => {
+router.post("/overview", (req, res) => {
   // GET route code here
-  console.log('req.body', req.body)
-  const targetDate = req.body.targetDate
-  console.log('targetDate is: ', targetDate);
-  const queryText =  `SELECT "reflection".id, "reflection".mood, "reflection".time, "activity".activity_name, "word".word_name
+  console.log("req.body", req.body);
+  const targetDate = req.body.targetDate;
+  const userID = req.body.user_id;
+  console.log("targetDate is: ", targetDate);
+  const queryText = `SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  "activity".activity_name, "word".word_name, "relationship".name, 
+  "relationship".relationship_to_user
   FROM "user"
   JOIN "reflection"
   ON "reflection".user_id = "user".id
@@ -22,23 +25,28 @@ router.post('/overview', (req, res) => {
   ON "reflection".id = "reflection_word".reflection_id
   JOIN "word"
   ON "reflection_word".word_id = "word".id
-  WHERE ("user".id = 2) AND "reflection".time = $1;`
+  JOIN "relationship"
+  ON "user".id = "relationship".user_id
+  JOIN "reflection_relationship"
+  ON "relationship".id = "reflection_relationship".relationship_id
+  WHERE ("user".id = $1) AND "reflection".time = $2;`;
 
-  pool.query(queryText, [targetDate])
-  .then( result => {
-    res.send(result.rows);
-  })
-  .catch( error => {
-    console.log('Error in GET today in reflection router', error);
-  })
+  pool
+    .query(queryText, [userID, targetDate])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in GET today in reflection router", error);
+    });
 });
 
 /**
  * POST route template
  */
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   // POST route code here
-  console.log('req.body:', req.body);
+  console.log("req.body:", req.body);
 
   const userID = req.body.user_id;
   const mood = req.body.mood;
@@ -47,51 +55,62 @@ router.post('/', async (req, res) => {
   const activityAssociations = req.body.activity_assoc;
   const relationshipAssociations = req.body.relation_assoc;
 
-  const connection = await pool.connect()
+  const connection = await pool.connect();
   try {
-      await connection.query('BEGIN');
-      const sqlAddReflection = `INSERT INTO "reflection" ("user_id", "time", "mood") VALUES ($1, $2, $3) RETURNING id;`;
+    await connection.query("BEGIN");
+    const sqlAddReflection = `INSERT INTO "reflection" ("user_id", "time", "mood") VALUES ($1, $2, $3) RETURNING id;`;
 
-      //Save the result so we can get the returned value
-      const result = await connection.query( sqlAddReflection, [userID, 'today', mood])
-      //Get the id from the result - will have 1 row with the id
-      const reflectionID = result.rows[0].id;
-      console.log('reflectionID is:', reflectionID);
-          
-        const sqlAddWord = `INSERT INTO "reflection_word" ("word_id", "reflection_id") VALUES ($1, $2);`;
+    //Save the result so we can get the returned value
+    const result = await connection.query(sqlAddReflection, [
+      userID,
+      "today",
+      mood,
+    ]);
+    //Get the id from the result - will have 1 row with the id
+    const reflectionID = result.rows[0].id;
+    console.log("reflectionID is:", reflectionID);
 
-        for (let i = 0; i < wordAssociations.length; i++) {
-            console.log(wordAssociations[i].id);
+    const sqlAddWord = `INSERT INTO "reflection_word" ("word_id", "reflection_id") VALUES ($1, $2);`;
 
-            await connection.query( sqlAddWord, [wordAssociations[i].id, reflectionID]);  
-          }
+    for (let i = 0; i < wordAssociations.length; i++) {
+      console.log(wordAssociations[i].id);
 
-        const sqlAddActivity = `INSERT INTO "reflection_activity" ("activity_id", "reflection_id") VALUES ($1, $2);`;
+      await connection.query(sqlAddWord, [
+        wordAssociations[i].id,
+        reflectionID,
+      ]);
+    }
 
-        for (let i = 0; i < activityAssociations.length; i++) {
-            console.log(activityAssociations[i].id);
+    const sqlAddActivity = `INSERT INTO "reflection_activity" ("activity_id", "reflection_id") VALUES ($1, $2);`;
 
-            await connection.query( sqlAddActivity, [activityAssociations[i].id, reflectionID]);  
-          }
+    for (let i = 0; i < activityAssociations.length; i++) {
+      console.log(activityAssociations[i].id);
 
-        const sqlAddRelationship = `INSERT INTO "reflection_relationship" ("relationship_id", "reflection_id") VALUES ($1, $2);`
+      await connection.query(sqlAddActivity, [
+        activityAssociations[i].id,
+        reflectionID,
+      ]);
+    }
 
-        for (let i = 0; i < relationshipAssociations.length; i++) {
-            console.log(relationshipAssociations[i].id);
+    const sqlAddRelationship = `INSERT INTO "reflection_relationship" ("relationship_id", "reflection_id") VALUES ($1, $2);`;
 
-            await connection.query( sqlAddRelationship, [relationshipAssociations[i].id, reflectionID]);  
-          }
+    for (let i = 0; i < relationshipAssociations.length; i++) {
+      console.log(relationshipAssociations[i].id);
 
-          await connection.query('COMMIT');
-          res.sendStatus(200);
+      await connection.query(sqlAddRelationship, [
+        relationshipAssociations[i].id,
+        reflectionID,
+      ]);
+    }
 
-
-  } catch ( error ) {
-    await connection.query('ROLLBACK');
+    await connection.query("COMMIT");
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query("ROLLBACK");
     console.log(`Transaction Error - Rolling back new reflection`, error);
-    res.sendStatus(500); 
+    res.sendStatus(500);
   } finally {
-    connection.release()
+    connection.release();
   }
 });
 

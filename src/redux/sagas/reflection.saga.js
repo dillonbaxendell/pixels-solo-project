@@ -18,11 +18,13 @@ function* postReflection(action) {
 //This grabs the reflections for today and yesterday to display in Daily Overview
 function* fetchReflections(action) {
   try {
-    let targetDate = action.payload;
+    let targetDate = action.payload.targetDate;
+    let userID = action.payload.user_id;
     console.log("targetDate in saga:", targetDate);
     //GET request to grab today's reflections
     const response = yield axios.post("/api/reflection/overview", {
       targetDate: targetDate,
+      user_id: userID
     });
 
     //Set the today list in Redux
