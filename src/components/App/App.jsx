@@ -23,6 +23,7 @@ import MoodCheckIn from "../MoodCheckIn/MoodCheckIn";
 import WordAssociations from "../WordAssociations/WordAssociations";
 import ActivitiesCheckIn from "../ActivitiesCheckIn/ActivitiesCheckIn";
 import DailyOverview from "../DailyOverview/DailyOverview";
+import EditForm from "../EditForm/EditForm";
 
 import "./App.css";
 
@@ -118,6 +119,9 @@ function App() {
 
           <ProtectedRoute exact path="/daily">
             <DailyOverview />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/daily/edit">
+            <EditForm />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
