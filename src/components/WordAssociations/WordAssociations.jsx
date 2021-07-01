@@ -7,6 +7,7 @@ import PreviousButton from '../PreviousButton/PreviousButton';
 function WordAssociations() {
     const dispatch = useDispatch();
 
+
     //Testing to see what the word associations are:
     const wordAssociations = useSelector( store => store.wordAssociations);
     //Grab MoodValue from Redux to display as reference for User
@@ -45,6 +46,7 @@ function WordAssociations() {
     }
 
     const handleSelect = (wordObject) => {
+
         //Sets the word associations in Redux so we can access it later
         dispatch({
             type: 'SET_ASSOCIATIONS',

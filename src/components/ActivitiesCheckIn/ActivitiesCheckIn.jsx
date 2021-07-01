@@ -8,6 +8,7 @@ import RelationshipModal from "../RelationshipModal/RelationshipModal";
 
 function ActivitiesCheckIn() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector( store => store.user)
   const wordAssociations = useSelector( store => store.wordAssociations);
@@ -73,6 +74,8 @@ function ActivitiesCheckIn() {
         type: 'SUBMIT_REFLECTION',
         payload: masterObject
     })
+
+    history.push('/daily');
   }
 
   return (
@@ -93,7 +96,7 @@ function ActivitiesCheckIn() {
                   onClick={() =>
                     selectActivity({
                       id: activity.id,
-                      word_name: activity.activity_name,
+                      activity_name: activity.activity_name,
                     })
                   }
                   key={activity.id}
