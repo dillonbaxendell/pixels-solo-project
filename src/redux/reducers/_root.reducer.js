@@ -10,6 +10,7 @@ import activityAssociations from './activityAssociations.reducer';
 import relationshipAssociations from './relationshipAssociations.reducer';
 import todaysReflections from './today.reducer';
 import yesterdaysReflections from './yesterday.reducer';
+import editReflectionReducer from './edit.reflection.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   activityAssociations, // contains the activities associated with the reflection being made
   relationshipAssociations, // contains the relationships associated with the reflection being made
   todaysReflections, //contains the reflections for today to see in Daily Overview
-  yesterdaysReflections //contains the reflections for yesterday to see in Daily Overview
+  yesterdaysReflections, //contains the reflections for yesterday to see in Daily Overview
+  editReflectionReducer //holds the reflection to be edited
 });
 
 export default rootReducer;
