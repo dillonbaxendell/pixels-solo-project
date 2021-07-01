@@ -7,6 +7,27 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   // GET route code here
+  const queryText =  `SELECT "reflection".id, "reflection".mood, "reflection".time, "activity".activity_name, "word".word_name
+  FROM "user"
+  JOIN "reflection"
+  ON "reflection".user_id = "user".id
+  JOIN "reflection_activity" 
+  ON "reflection".id = "reflection_activity".reflection_id
+  JOIN "activity"
+  ON "reflection_activity".activity_id = "activity".id
+  JOIN "reflection_word"
+  ON "reflection".id = "reflection_word".reflection_id
+  JOIN "word"
+  ON "reflection_word".word_id = "word".id
+  WHERE ("user".id = 2) AND "reflection".time = 'today';`
+
+  pool.query(queryText)
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch( error => {
+    console.log('Error in GET today in reflection router', error);
+  })
 });
 
 /**

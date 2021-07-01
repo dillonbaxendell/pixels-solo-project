@@ -18,8 +18,23 @@ function* postReflection(action) {
     }
 }
 
+//WORKER SAGA: fired on 'FETCH_TODAY
+//This grabs the reflections for today to display in Daily Overview
+function* fetchToday() {
+    try {
+        //GET request to grab today's reflections
+        const response = yield axios.get('/api/reflection');
+
+        //Set the today list in Redux
+        yield put({type: 'SET_TODAY', payload: response.data});
+    } catch (error) {
+        console.log('Today GET request failed', error);
+    }
+}
+
 function* reflectionSaga() {
     yield takeLatest('SUBMIT_REFLECTION', postReflection);
+    yield takeLatest('FETCH_TODAY', fetchToday);
 }
 
 export default reflectionSaga;

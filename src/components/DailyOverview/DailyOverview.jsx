@@ -1,38 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 
-function DailyOverview () {
-const moodValue = useSelector( store => store.moodValue);
-const activities = useSelector( store => store.activityAssociations);
-const words = useSelector( store => store.wordAssociations);
-const relationships = useSelector( store => store.relationshipAssociations);
+function DailyOverview() {
+  const dispatch = useDispatch();
+
+  const todaysReflections = useSelector( store => store.todaysReflections);
 
 
-    return (
-        <>
-            <h2>how does this look?</h2>
-            <p>Mood Value: {moodValue}</p>
-            <p>Word Associations:</p>
-            <ul>
-                {words.map((word) => {
-                    return <li key={word.id}>{word.word_name}</li>
-                })}
-            </ul>
-            <p>what you were doing</p>
-            <ul>
-            {activities.map((activity) => {
-                return <li key={activity.id}>{activity.activity_name}</li>
-            })}
-            </ul>
-            <p>who you were with</p>
-            <ul>
-            {relationships.map((relationship) => {
-                return <li key={relationship.id}>{relationship.name}</li>
-            })}
-</ul>
-            
 
-        </>
-    )
+  useEffect(() => {
+    dispatch({type: 'FETCH_TODAY'})
+  }, [])
+
+
+
+
+  console.log('Todays Reflections are:', todaysReflections);
+
+  return (
+    <>
+      <h2>how does this look?</h2>
+
+      <p>Mood Value:</p>
+      <p>Word Associations:</p>
+
+      <p>what you were doing</p>
+
+      <p>who you were with</p>
+    </>
+  );
 }
 
 export default DailyOverview;
