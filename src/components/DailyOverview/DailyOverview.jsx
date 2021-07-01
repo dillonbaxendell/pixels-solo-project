@@ -5,28 +5,42 @@ function DailyOverview() {
   const dispatch = useDispatch();
 
   const todaysReflections = useSelector( store => store.todaysReflections);
-
+  const yesterdaysReflections = useSelector( store => store.yesterdaysReflections);
 
 
   useEffect(() => {
-    dispatch({type: 'FETCH_TODAY'})
+    dispatch({type: 'FETCH_TODAY', payload: 'today'})
+    dispatch({type: 'FETCH_YESTERDAY', payload: 'yesterday'})
   }, [])
 
 
 
 
   console.log('Todays Reflections are:', todaysReflections);
+  console.log('Yesterdays Reflections are:', yesterdaysReflections);
 
   return (
     <>
-      <h2>how does this look?</h2>
-
-      <p>Mood Value:</p>
-      <p>Word Associations:</p>
-
-      <p>what you were doing</p>
-
-      <p>who you were with</p>
+      <h2>today's reflections:</h2>
+    {todaysReflections.map( reflection => {
+        return (
+            <>
+            <p>Mood Value is: {reflection.mood}</p>
+            <p>Activity: {reflection.activity_name}</p>
+            <p>feeling: {reflection.word_name}</p>
+            </>
+        )
+    })}
+          <h2>yesterday's reflections:</h2>
+    {yesterdaysReflections.map( reflection => {
+        return (
+            <>
+            <p>Mood Value is: {reflection.mood}</p>
+            <p>Activity: {reflection.activity_name}</p>
+            <p>feeling: {reflection.word_name}</p>
+            </>
+        )
+    })}
     </>
   );
 }

@@ -3,10 +3,13 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * POST route template
  */
-router.get('/', (req, res) => {
+router.post('/overview', (req, res) => {
   // GET route code here
+  console.log('req.body', req.body)
+  const targetDate = req.body.targetDate
+  console.log('targetDate is: ', targetDate);
   const queryText =  `SELECT "reflection".id, "reflection".mood, "reflection".time, "activity".activity_name, "word".word_name
   FROM "user"
   JOIN "reflection"
@@ -19,9 +22,9 @@ router.get('/', (req, res) => {
   ON "reflection".id = "reflection_word".reflection_id
   JOIN "word"
   ON "reflection_word".word_id = "word".id
-  WHERE ("user".id = 2) AND "reflection".time = 'today';`
+  WHERE ("user".id = 2) AND "reflection".time = $1;`
 
-  pool.query(queryText)
+  pool.query(queryText, [targetDate])
   .then( result => {
     res.send(result.rows);
   })
