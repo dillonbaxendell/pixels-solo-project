@@ -10,7 +10,7 @@ router.post("/overview", (req, res) => {
   console.log("req.body", req.body);
   const targetDate = req.body.targetDate;
   const userID = req.body.user_id;
-  console.log("targetDate is: ", targetDate);
+  console.log("targetDate is: ", targetDate, req.body.user_id);
   const queryText = `SELECT "reflection".id, "reflection".mood, 
   "reflection".time, "activity".activity_name, "word".word_name, 
   "relationship".name, "relationship".relationship_to_user, 
