@@ -20,8 +20,7 @@ function EditForm() {
   console.log('activity ', editActivityID);
   const [editMood, setMood] = useState(1);
   const [editWordID, setWordID] = useState(reflection.word_id);
-  const [editRelationID, setRelationID] = useState("");
-  const [editRelationship, setRelationship] = useState("");
+  const [editRelationID, setRelationID] = useState(reflection.relationship_id);
 
   const reflectionToEdit = {
       activity_id: editActivityID,
@@ -30,6 +29,8 @@ function EditForm() {
       relationship_id: editRelationID,
       word_id: editWordID
   }
+
+  console.log('REFLECTION TO EDIT: ', reflectionToEdit);
 
   const handleSubmit = () => {
       console.log('clicked submit');

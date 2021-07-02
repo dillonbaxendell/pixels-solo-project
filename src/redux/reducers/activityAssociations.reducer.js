@@ -1,7 +1,9 @@
-const activityAssociationsReducer = (state = [], action) => {
+const activityAssociationsReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_ACT_ASSOC' :
-            return [...state, action.payload];
+            return action.payload;
+        case 'CLEAR_ACT_ASSOC' :
+            return {};
         default :
             return state;
     }

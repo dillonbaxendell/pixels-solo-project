@@ -9,6 +9,23 @@ function* postReflection(action) {
 
     //POST request to add new Reflection
     yield axios.post("/api/reflection", masterObject);
+
+    yield put({
+        type: 'CLEAR_ACT_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_WORD_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_RELATION_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_MOOD'
+    })
+    
   } catch (error) {
     console.log("Reflection POST request failed", error);
   }
@@ -21,6 +38,7 @@ function* fetchReflections(action) {
     let targetDate = action.payload.targetDate;
     let userID = action.payload.user_id;
     console.log("targetDate in saga:", targetDate);
+    console.log('userID in saga:', userID);
     //GET request to grab today's reflections
     const response = yield axios.post("/api/reflection/overview", {
       targetDate: targetDate,

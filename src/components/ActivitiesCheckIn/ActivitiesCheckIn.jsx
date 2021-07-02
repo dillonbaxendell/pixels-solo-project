@@ -75,6 +75,7 @@ function ActivitiesCheckIn() {
         payload: masterObject
     })
 
+
     history.push('/daily');
   }
 

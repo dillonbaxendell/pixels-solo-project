@@ -11,15 +11,16 @@ router.post("/overview", (req, res) => {
   const targetDate = req.body.targetDate;
   const userID = req.body.user_id;
   console.log("targetDate is: ", targetDate, req.body.user_id);
-  const queryText = `SELECT "reflection".id, "reflection".mood, 
-  "reflection".time, "activity".activity_name, "word".word_name, 
-  "relationship".name, "relationship".relationship_to_user, 
-  "activity".id AS "activity_id", "word".id AS "word_id", 
+  const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  "activity".activity_name, "word".word_name, "relationship".name, 
+  "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
   "relationship".id AS "relationship_id"
   FROM "user"
+  JOIN "relationship"
+  ON "user".id = "relationship".user_id
   JOIN "reflection"
   ON "reflection".user_id = "user".id
-  JOIN "reflection_activity" 
+  JOIN "reflection_activity"
   ON "reflection".id = "reflection_activity".reflection_id
   JOIN "activity"
   ON "reflection_activity".activity_id = "activity".id
@@ -27,11 +28,8 @@ router.post("/overview", (req, res) => {
   ON "reflection".id = "reflection_word".reflection_id
   JOIN "word"
   ON "reflection_word".word_id = "word".id
-  JOIN "relationship"
-  ON "user".id = "relationship".user_id
-  JOIN "reflection_relationship"
-  ON "relationship".id = "reflection_relationship".relationship_id
-  WHERE ("user".id = $1) AND "reflection".time = $2;`;
+  WHERE ("user".id = $1) AND "reflection".time = $2
+ ;`;
 
   pool.query(queryText, [userID, targetDate])
     .then((result) => {
@@ -51,7 +49,9 @@ router.post("/", async (req, res) => {
   console.log("req.body:", req.body);
 
   const userID = req.body.user_id;
+  console.log('USER ID IS THIS', userID);
   const mood = req.body.mood;
+  console.log("MOOD IS THIS", mood);
   const wordAssociations = req.body.word_assoc;
   console.log(wordAssociations);
   const activityAssociations = req.body.activity_assoc;
@@ -74,36 +74,34 @@ router.post("/", async (req, res) => {
 
     const sqlAddWord = `INSERT INTO "reflection_word" ("word_id", "reflection_id") VALUES ($1, $2);`;
 
-    for (let i = 0; i < wordAssociations.length; i++) {
-      console.log("wordID:", wordAssociations[i].id);
+      console.log("wordID:", wordAssociations.id);
 
       await connection.query(sqlAddWord, [
-        wordAssociations[i].id,
+        wordAssociations.id,
         reflectionID,
       ]);
-    }
+    
 
     const sqlAddActivity = `INSERT INTO "reflection_activity" ("activity_id", "reflection_id") VALUES ($1, $2);`;
 
-    for (let i = 0; i < activityAssociations.length; i++) {
-      console.log(activityAssociations[i].id);
+
+      console.log('activity associations in router', activityAssociations.id);
 
       await connection.query(sqlAddActivity, [
-        activityAssociations[i].id,
+        activityAssociations.id,
         reflectionID,
       ]);
-    }
+  
 
     const sqlAddRelationship = `INSERT INTO "reflection_relationship" ("relationship_id", "reflection_id") VALUES ($1, $2);`;
 
-    for (let i = 0; i < relationshipAssociations.length; i++) {
-      console.log(relationshipAssociations[i].id);
+      console.log(relationshipAssociations.id);
 
       await connection.query(sqlAddRelationship, [
-        relationshipAssociations[i].id,
+        relationshipAssociations.id,
         reflectionID,
       ]);
-    }
+    
 
     await connection.query("COMMIT");
     res.sendStatus(200);
@@ -141,12 +139,23 @@ router.put("/:id", async (req, res) => {
     const sqlUpdateReflection = `UPDATE "reflection"
     SET "mood" = $1 WHERE "id" = $2;`;
 
-    // await connection.query(sqlUpdateReflection, [moodValue, reflectionID]);
+    await connection.query(sqlUpdateReflection, [moodValue, reflectionID]);
 
-    // const sqlUpdateActivity = `UPDATE "activity"
-    // SET "activity_name" = $1 WHERE "id" = $2;`;
+    const sqlUpdateActivity = `UPDATE "reflection_activity"
+    SET "activity_id" = $1 WHERE "reflection_id" = $2;`
 
-    await connection.query(sqlUpdateActivity, [activityName, activityID]);
+    await connection.query(sqlUpdateActivity, [activityID, reflectionID]);
+
+    const sqlUpdateWord = `UPDATE "reflection_word"
+    SET "word_id" = $1 WHERE "reflection_id" = $2;`;
+
+    await connection.query(sqlUpdateWord, [wordID, reflectionID]);
+
+    const sqlUpdateRelationship = `UPDATE "reflection_relationship"
+    SET "relationship_id" = $1 WHERE "reflection_id" = $2;`;
+
+    await connection.query(sqlUpdateRelationship, [relationshipID, reflectionID]);
+
     await connection.query("COMMIT");
     res.sendStatus(200);
   } catch (error) {
