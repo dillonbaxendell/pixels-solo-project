@@ -3,7 +3,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
- * POST route template
+ * POST route
  */
 router.post("/overview", (req, res) => {
   // GET route code here
@@ -11,9 +11,11 @@ router.post("/overview", (req, res) => {
   const targetDate = req.body.targetDate;
   const userID = req.body.user_id;
   console.log("targetDate is: ", targetDate);
-  const queryText = `SELECT "reflection".id, "reflection".mood, "reflection".time, 
-  "activity".activity_name, "word".word_name, "relationship".name, 
-  "relationship".relationship_to_user
+  const queryText = `SELECT "reflection".id, "reflection".mood, 
+  "reflection".time, "activity".activity_name, "word".word_name, 
+  "relationship".name, "relationship".relationship_to_user, 
+  "activity".id AS "activity_id", "word".id AS "word_id", 
+  "relationship".id AS "relationship_id"
   FROM "user"
   JOIN "reflection"
   ON "reflection".user_id = "user".id
@@ -31,9 +33,9 @@ router.post("/overview", (req, res) => {
   ON "relationship".id = "reflection_relationship".relationship_id
   WHERE ("user".id = $1) AND "reflection".time = $2;`;
 
-  pool
-    .query(queryText, [userID, targetDate])
+  pool.query(queryText, [userID, targetDate])
     .then((result) => {
+      console.log("what is result.rows?", result.rows);
       res.send(result.rows);
     })
     .catch((error) => {
@@ -42,7 +44,7 @@ router.post("/overview", (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route
  */
 router.post("/", async (req, res) => {
   // POST route code here
@@ -73,7 +75,7 @@ router.post("/", async (req, res) => {
     const sqlAddWord = `INSERT INTO "reflection_word" ("word_id", "reflection_id") VALUES ($1, $2);`;
 
     for (let i = 0; i < wordAssociations.length; i++) {
-      console.log(wordAssociations[i].id);
+      console.log("wordID:", wordAssociations[i].id);
 
       await connection.query(sqlAddWord, [
         wordAssociations[i].id,
@@ -108,6 +110,48 @@ router.post("/", async (req, res) => {
   } catch (error) {
     await connection.query("ROLLBACK");
     console.log(`Transaction Error - Rolling back new reflection`, error);
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
+});
+
+/**
+ * PUT route
+ */
+router.put("/:id", async (req, res) => {
+  console.log("req.body, req.params in PUT: ", req.body, req.params.id);
+
+  //sparse the object out in separate variables:
+  const reflectionID = req.body.id;
+  const activityID = req.body.activity_id;
+  const wordID = req.body.word_id;
+  const relationshipID = req.body.relationship_id;
+
+  const activityName = req.body.activity_name;
+  const moodValue = req.body.mood;
+  const relationshipName = req.body.name;
+  const relationshipToUser = req.body.relationship_to_user;
+  const wordName = req.body.word_name;
+
+  //Now complete the PUT request
+  const connection = await pool.connect();
+  try {
+    await connection.query("BEGIN");
+    const sqlUpdateReflection = `UPDATE "reflection"
+    SET "mood" = $1 WHERE "id" = $2;`;
+
+    // await connection.query(sqlUpdateReflection, [moodValue, reflectionID]);
+
+    // const sqlUpdateActivity = `UPDATE "activity"
+    // SET "activity_name" = $1 WHERE "id" = $2;`;
+
+    await connection.query(sqlUpdateActivity, [activityName, activityID]);
+    await connection.query("COMMIT");
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query("ROLLBACK");
+    console.log(`Transaction Error - Rolling back edit reflection`, error);
     res.sendStatus(500);
   } finally {
     connection.release();

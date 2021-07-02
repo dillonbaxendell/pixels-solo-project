@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 
 function EditForm() {
+    const dispatch = useDispatch();
+
+
   const reflection = useSelector((store) => store.editReflectionReducer);
   console.log("reflection is:", reflection);
 
@@ -11,6 +14,27 @@ function EditForm() {
   const [editWord, setWord] = useState("");
   const [editRelationName, setRelationName] = useState("");
   const [editRelationship, setRelationship] = useState("");
+
+  const reflectionToEdit = {
+      activity_name: editActivity,
+      activity_id: reflection.activity_id,
+      id: reflection.id,
+      mood: editMood,
+      name: editRelationName,
+      relationship_id: reflection.relationship_id,
+      relationship_to_user: editRelationship,
+      word_name: editWord,
+      word_id: reflection.word_id
+  }
+
+  const handleSubmit = () => {
+      console.log('clicked submit');
+
+      dispatch({ type: 'EDIT_REFLECTION', payload: reflectionToEdit })
+
+      //Clear Redux
+      dispatch({ type: 'CLEAR_EDIT' })
+  }
 
   return (
     <>
@@ -79,6 +103,7 @@ function EditForm() {
           />
         </label>
       </div>
+      <button onClick={handleSubmit}>SUBMIT</button>
     </>
   );
 }

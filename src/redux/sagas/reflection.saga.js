@@ -30,6 +30,7 @@ function* fetchReflections(action) {
     //Set the today list in Redux
     //IF the we're grabbing yesterday's reflection, then we want to send 
     //that to a different reducer. If not, send to the today reducer.
+    console.log('response.data is:', response.data);
     if (targetDate === "yesterday") {
       yield put({ type: "SET_YESTERDAY", payload: response.data });
     } else {
@@ -41,10 +42,24 @@ function* fetchReflections(action) {
   }
 }
 
+function* editReflection(action) {
+    try {
+        let reflectionToEdit = action.payload;
+        let reflectionID = action.payload.id 
+        console.log('reflectionID is:', reflectionID);
+
+        yield axios.put(`/api/reflection/${reflectionID}`, reflectionToEdit);
+
+    } catch (error) {
+        console.log('Reflection PUT request failed', error);
+    }
+}
+
 function* reflectionSaga() {
   yield takeLatest("SUBMIT_REFLECTION", postReflection);
   yield takeLatest("FETCH_TODAY", fetchReflections);
   yield takeLatest("FETCH_YESTERDAY", fetchReflections);
+  yield takeLatest("EDIT_REFLECTION", editReflection);
 }
 
 export default reflectionSaga;
