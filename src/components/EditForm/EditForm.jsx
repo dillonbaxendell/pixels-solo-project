@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import relationshipListReducer from "../../redux/reducers/relationshipList.reducer";
+import { useHistory } from "react-router-dom";
 
 function EditForm() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
 
   const reflection = useSelector((store) => store.editReflectionReducer);
@@ -22,7 +23,7 @@ function EditForm() {
   const [editWordID, setWordID] = useState(reflection.word_id);
   const [editRelationID, setRelationID] = useState(reflection.relationship_id);
 
-  const reflectionToEdit = {
+  const reflectionToSend = {
       activity_id: editActivityID,
       id: reflection.id,
       mood: editMood,
@@ -30,16 +31,21 @@ function EditForm() {
       word_id: editWordID
   }
 
-  console.log('REFLECTION TO EDIT: ', reflectionToEdit);
+  console.log('REFLECTION TO EDIT: ', reflectionToSend);
 
   const handleSubmit = () => {
       console.log('clicked submit');
 
-      dispatch({ type: 'EDIT_REFLECTION', payload: reflectionToEdit })
+      dispatch({ type: 'EDIT_REFLECTION', payload: reflectionToSend })
 
-      //Clear Redux
-      dispatch({ type: 'CLEAR_EDIT' })
+      history.push('/daily');
   }
+
+  useEffect(() => {
+      dispatch({ type: 'FETCH_WORDS' })
+      dispatch({ type: 'FETCH_RELATIONSHIPS' })
+      dispatch({ type: 'FETCH_ACTIVITIES' })
+  }, [])
 
   return (
     <>

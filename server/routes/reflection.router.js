@@ -125,12 +125,8 @@ router.put("/:id", async (req, res) => {
   const activityID = req.body.activity_id;
   const wordID = req.body.word_id;
   const relationshipID = req.body.relationship_id;
-
-  const activityName = req.body.activity_name;
   const moodValue = req.body.mood;
-  const relationshipName = req.body.name;
-  const relationshipToUser = req.body.relationship_to_user;
-  const wordName = req.body.word_name;
+
 
   //Now complete the PUT request
   const connection = await pool.connect();
@@ -166,5 +162,47 @@ router.put("/:id", async (req, res) => {
     connection.release();
   }
 });
+
+
+router.delete("/:id", async (req, res) => {
+
+  const reflectionID = req.params.id
+  console.log('req.body in DELETE (router)', req.params);
+  console.log('reflectionID in DELETE (router):', reflectionID);
+
+  const connection = await pool.connect();
+  try {
+    await connection.query("BEGIN");
+
+    const sqlDeleteActivity = `DELETE FROM "reflection_activity" 
+    WHERE "reflection_activity".reflection_id = $1;`;
+
+    await connection.query(sqlDeleteActivity, [reflectionID]);
+
+    const sqlDeleteRelationship = `DELETE FROM "reflection_relationship"
+    WHERE "reflection_relationship".reflection_id = $1;`;
+
+    await connection.query(sqlDeleteRelationship, [reflectionID]);
+
+    const sqlDeleteWord = `DELETE FROM "reflection_word"
+    WHERE "reflection_word".reflection_id = $1;`;
+
+    await connection.query(sqlDeleteWord, [reflectionID]);
+
+    const sqlDeleteReflection = `DELETE FROM "reflection"
+    WHERE "reflection".id = $1;`;
+
+    await connection.query(sqlDeleteReflection, [reflectionID]);
+
+    await connection.query("COMMIT");
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query("ROLLBACK");
+    console.log(`Transaction Error - Rolling back DELETE reflection`, error);
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
+})
 
 module.exports = router;

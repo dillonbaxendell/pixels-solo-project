@@ -25,7 +25,7 @@ function* postReflection(action) {
     yield put({
         type: 'CLEAR_MOOD'
     })
-    
+
   } catch (error) {
     console.log("Reflection POST request failed", error);
   }
@@ -68,8 +68,24 @@ function* editReflection(action) {
 
         yield axios.put(`/api/reflection/${reflectionID}`, reflectionToEdit);
 
+        yield put({  type: 'CLEAR_EDIT' })
+
     } catch (error) {
         console.log('Reflection PUT request failed', error);
+    }
+}
+
+
+function* deleteReflection(action) {
+    try {
+        let reflectionToDelete = action.payload;
+        let reflectionID = action.payload.id
+
+        yield axios.delete(`api/reflection/${reflectionID}`, reflectionToDelete);
+
+        yield put({ type: "FETCH_TODAY", payload: {user_id: userID, targetDate: 'today'}});
+    } catch (error) {
+        console.log('Reflection DELETE request failed', error);
     }
 }
 
@@ -78,6 +94,7 @@ function* reflectionSaga() {
   yield takeLatest("FETCH_TODAY", fetchReflections);
   yield takeLatest("FETCH_YESTERDAY", fetchReflections);
   yield takeLatest("EDIT_REFLECTION", editReflection);
+  yield takeLatest("DELETE_REFLECTION", deleteReflection);
 }
 
 export default reflectionSaga;
