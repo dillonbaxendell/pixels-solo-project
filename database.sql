@@ -25,7 +25,7 @@ CREATE TABLE "reflection" (
 CREATE TABLE "activity" (
 	"id" SERIAL PRIMARY KEY,
 	"activity_name" varchar(255) NOT NULL,
-	"activity_icon" varchar(255) NOT NULL,
+	"activity_icon" varchar(255) NULL,
 	"user_id" int REFERENCES "user" NOT NULL
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE "relationship" (
 	"id" SERIAL PRIMARY KEY,
 	"name" varchar(255) NOT NULL,
 	"relationship_to_user" varchar(255) NOT NULL,
-	"relationship_icon" varchar(255) NOT NULL,
+	"relationship_icon" varchar(255) NULL,
 	"user_id" int REFERENCES "user" NOT NULL
 );
 
@@ -66,8 +66,8 @@ CREATE TABLE "word" (
 
 CREATE TABLE "reflection_word" (
 	"id" SERIAL PRIMARY KEY,
-	"word_id" int NOT NULL,
-	"reflection_id" int NOT NULL
+	"word_id" int REFERENCES "word" NOT NULL,
+	"reflection_id" REFERENCES "reflection" int NOT NULL
 );
 
 

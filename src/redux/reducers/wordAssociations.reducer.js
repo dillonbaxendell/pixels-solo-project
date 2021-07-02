@@ -1,7 +1,9 @@
-const wordAssociationsReducer = (state = [], action) => {
+const wordAssociationsReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_ASSOCIATIONS' :
-            return [...state, action.payload];
+            return action.payload;
+        case 'CLEAR_WORD_ASSOC' :
+            return {};
         default :
             return state;
     }

@@ -9,6 +9,23 @@ function* postReflection(action) {
 
     //POST request to add new Reflection
     yield axios.post("/api/reflection", masterObject);
+
+    yield put({
+        type: 'CLEAR_ACT_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_WORD_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_RELATION_ASSOC'
+    })
+
+    yield put({
+        type: 'CLEAR_MOOD'
+    })
+
   } catch (error) {
     console.log("Reflection POST request failed", error);
   }
@@ -21,6 +38,7 @@ function* fetchReflections(action) {
     let targetDate = action.payload.targetDate;
     let userID = action.payload.user_id;
     console.log("targetDate in saga:", targetDate);
+    console.log('userID in saga:', userID);
     //GET request to grab today's reflections
     const response = yield axios.post("/api/reflection/overview", {
       targetDate: targetDate,
@@ -30,6 +48,7 @@ function* fetchReflections(action) {
     //Set the today list in Redux
     //IF the we're grabbing yesterday's reflection, then we want to send 
     //that to a different reducer. If not, send to the today reducer.
+    console.log('response.data is:', response.data);
     if (targetDate === "yesterday") {
       yield put({ type: "SET_YESTERDAY", payload: response.data });
     } else {
@@ -41,10 +60,41 @@ function* fetchReflections(action) {
   }
 }
 
+function* editReflection(action) {
+    try {
+        let reflectionToEdit = action.payload;
+        let reflectionID = action.payload.id 
+        console.log('reflectionID is:', reflectionID);
+
+        yield axios.put(`/api/reflection/${reflectionID}`, reflectionToEdit);
+
+        yield put({  type: 'CLEAR_EDIT' })
+
+    } catch (error) {
+        console.log('Reflection PUT request failed', error);
+    }
+}
+
+
+function* deleteReflection(action) {
+    try {
+        let reflectionToDelete = action.payload;
+        let reflectionID = action.payload.id
+
+        yield axios.delete(`api/reflection/${reflectionID}`, reflectionToDelete);
+
+        yield put({ type: "FETCH_TODAY", payload: {user_id: userID, targetDate: 'today'}});
+    } catch (error) {
+        console.log('Reflection DELETE request failed', error);
+    }
+}
+
 function* reflectionSaga() {
   yield takeLatest("SUBMIT_REFLECTION", postReflection);
   yield takeLatest("FETCH_TODAY", fetchReflections);
   yield takeLatest("FETCH_YESTERDAY", fetchReflections);
+  yield takeLatest("EDIT_REFLECTION", editReflection);
+  yield takeLatest("DELETE_REFLECTION", deleteReflection);
 }
 
 export default reflectionSaga;

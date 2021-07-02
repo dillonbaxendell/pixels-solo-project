@@ -17,6 +17,7 @@ function DailyOverview() {
     dispatch({type: 'FETCH_YESTERDAY', payload: {user_id: userID, targetDate: 'yesterday'}})
   }, [])
 
+
 const handleEdit = (reflectionToEdit) => {
     console.log('clicked edit!');
 
@@ -28,8 +29,11 @@ const handleEdit = (reflectionToEdit) => {
 
 }
 
-const handleDelete = () => {
+const handleDelete = (reflectionToDelete) => {
     console.log('clicked delete!');
+
+    dispatch({ type: 'DELETE_REFLECTION', payload: reflectionToDelete})
+
 }
 
 
@@ -38,24 +42,25 @@ const handleDelete = () => {
       <h2>today's reflections:</h2>
     {todaysReflections.map( reflection => {
         return (
-            <>
+            <div key={reflection.id}>
             <p>Mood Value is: {reflection.mood}</p>
             <p>Activity: {reflection.activity_name}</p>
             <p>feeling: {reflection.word_name}</p>
             <p>relationship: {reflection.name} - {reflection.relationship_to_user}</p>
             <button onClick={() => handleEdit(reflection)}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
-            </>
+            <button onClick={() => handleDelete(reflection)}>Delete</button>
+            </div>
         )
     })}
           <h2>yesterday's reflections:</h2>
     {yesterdaysReflections.map( reflection => {
         return (
-            <>
+            <div>
             <p>Mood Value is: {reflection.mood}</p>
             <p>Activity: {reflection.activity_name}</p>
             <p>feeling: {reflection.word_name}</p>
-            </>
+            <p>relationship: {reflection.name} - {reflection.relationship_to_user}</p>
+            </div>
         )
     })}
     </>

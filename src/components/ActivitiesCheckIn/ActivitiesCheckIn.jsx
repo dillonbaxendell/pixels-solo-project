@@ -75,6 +75,7 @@ function ActivitiesCheckIn() {
         payload: masterObject
     })
 
+
     history.push('/daily');
   }
 
@@ -89,10 +90,9 @@ function ActivitiesCheckIn() {
         </div>
         <div>
           <h4>what you were doing</h4>
-          <ul>
             {activityList.map((activity) => {
               return (
-                <li
+                <div
                   onClick={() =>
                     selectActivity({
                       id: activity.id,
@@ -101,19 +101,17 @@ function ActivitiesCheckIn() {
                   }
                   key={activity.id}
                 >
-                  {activity.activity_name}
-                </li>
+                  <p>{activity.activity_name}</p>
+                </div>
               );
             })}
-          </ul>
           <ActivityModal />
         </div>
         <div>
           <h4>who you were with</h4>
-          <ul>
             {relationshipList.map((relationship) => {
               return (
-                <li
+                <div
                   onClick={() =>
                     selectRelationship({
                       id: relationship.id,
@@ -123,11 +121,10 @@ function ActivitiesCheckIn() {
                   }
                   key={relationship.id}
                 >
-                  {relationship.name}
-                </li>
+                  <p>{relationship.name}</p>
+                </div>
               );
             })}
-          </ul>
           <RelationshipModal />
         </div>
         <div>
