@@ -39,6 +39,7 @@ function ActivitiesCheckIn() {
   const masterObject = {
       user_id: user.id,
       mood: moodValue.value,
+      mood_img: moodValue.img,
       word_assoc: wordAssociations,
       activity_assoc: activityAssociations,
       relation_assoc: relationshipAssociations

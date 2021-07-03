@@ -2,6 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { Grid } from "@material-ui/core";
+import ReflectionItem from "../ReflectionItem/ReflectionItem";
+import mood1 from "../../Images/MOOD1.JPEG";
+import mood2 from "../../Images/MOOD2.JPEG";
+import mood3 from "../../Images/MOOD3.JPEG";
+import mood4 from "../../Images/MOOD4.JPEG";
+import mood5 from "../../Images/MOOD5.JPEG";
 
 function DailyOverview() {
   const dispatch = useDispatch();
@@ -11,6 +18,25 @@ function DailyOverview() {
   const [yesterday, setYesterday] = useState([]);
 
   const userID = useSelector((store) => store.user.id);
+
+  const checkMood = (moodValue) => {
+    switch (moodValue) {
+      case 1:
+        return mood1;
+      case 2:
+        return mood2;
+      case 3:
+        return mood3;
+      case 4:
+        return mood4;
+      case 5:
+        return mood5;
+      default:
+        return;
+    }
+  };
+
+  console.log(checkMood(1));
 
   useEffect(() => {
     getToday();
@@ -29,21 +55,22 @@ function DailyOverview() {
 
   //FUNCTION handleDelete
   const handleDelete = (reflectionID) => {
-      console.log('clicked delete!');
-      
-      //Axios Delete Request
-      axios.delete(`api/reflection/${reflectionID}`)
-      .then( response => {
-          console.log('Deleted reflection id#: ', reflectionID)
-          //Update the today reflections list
-          getToday();
-          //refresh window to get most updated data
-          window.location.reload();
+    console.log("clicked delete!");
+
+    //Axios Delete Request
+    axios
+      .delete(`api/reflection/${reflectionID}`)
+      .then((response) => {
+        console.log("Deleted reflection id#: ", reflectionID);
+        //Update the today reflections list
+        getToday();
+        //refresh window to get most updated data
+        window.location.reload();
       })
-      .catch( err => {
-          console.log('error in DELETE handleDelete', err);
-      })
-    };
+      .catch((err) => {
+        console.log("error in DELETE handleDelete", err);
+      });
+  };
 
   //This grabs the reflections for today to display in Daily Overview
   //GET Today's Reflections
@@ -52,7 +79,8 @@ function DailyOverview() {
 
     //axios to get feedback from database
     //send to Index.js for redux
-    axios.get(`/api/reflection/today/${userID}`)
+    axios
+      .get(`/api/reflection/today/${userID}`)
       .then((response) => {
         //console log response
         console.log("Response from GET: ", response.data);
@@ -88,33 +116,29 @@ function DailyOverview() {
 
   return (
     <>
-      <h2>today's reflections:</h2>
+      <h2>today</h2>
       {today.map((reflection) => {
+        console.log(reflection);
         return (
+          //   <Grid
+          //   container
+          //   direction="row"
+          //   justify="space-evenly"
+          //   alignItems="center"
+          // >
           <div key={reflection.id}>
-            <p>Mood Value is: {reflection.mood}</p>
-            <p>Activity: {reflection.activity_name}</p>
-            <p>feeling: {reflection.word_name}</p>
-            <p>
-              relationship: {reflection.name} -{" "}
-              {reflection.relationship_to_user}
-            </p>
+            <ReflectionItem reflection={reflection} />
             <button onClick={() => handleEdit(reflection)}>Edit</button>
             <button onClick={() => handleDelete(reflection.id)}>Delete</button>
           </div>
+          // </Grid>
         );
       })}
-      <h2>yesterday's reflections:</h2>
+      <h2>yesterday</h2>
       {yesterday.map((item) => {
         return (
           <div key={item.id}>
-            <p>Mood Value is: {item.mood}</p>
-            <p>Activity: {item.activity_name}</p>
-            <p>feeling: {item.word_name}</p>
-            <p>
-              relationship: {item.name} -{" "}
-              {item.relationship_to_user}
-            </p>
+              <ReflectionItem reflection={item} />
           </div>
         );
       })}
