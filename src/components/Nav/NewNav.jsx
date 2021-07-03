@@ -80,6 +80,23 @@ export default function Nav() {
     </Link>
       </List>
       <Divider />
+      <Link to="/reflection/1" style={{ color: 'black', textDecoration: 'none' }}>
+          <ListItem button key="CheckIn">
+              <ListItemIcon>
+                  <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Check-In" />
+          </ListItem>
+        </Link>
+      <Link to="/daily" style={{ color: 'black', textDecoration: 'none' }}>
+          <ListItem button key="DailyOverview">
+              <ListItemIcon>
+                  <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Daily Overview" />
+          </ListItem>
+      </Link>
+      <Divider />
       <List>
         <Link to="/info" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="Info">
@@ -107,6 +124,7 @@ export default function Nav() {
       <React.Fragment key="bottom">
         <Button onClick={toggleDrawer("bottom", true)} style={{padding: '30px'}}>
             <MenuIcon />
+            
         </Button>
         <SwipeableDrawer
           anchor="bottom"
