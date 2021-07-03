@@ -27,7 +27,7 @@ function DailyOverview() {
     history.push("/daily/edit");
   };
 
-    //FUNCTION handleDelete
+  //FUNCTION handleDelete
   const handleDelete = (reflectionID) => {
       console.log('clicked delete!');
       

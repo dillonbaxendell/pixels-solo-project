@@ -8,7 +8,7 @@ import {
 
 import { useDispatch } from "react-redux";
 
-import Nav from "../Nav/Nav";
+import Nav from "../Nav/NewNav";
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -24,6 +24,7 @@ import WordAssociations from "../WordAssociations/WordAssociations";
 import ActivitiesCheckIn from "../ActivitiesCheckIn/ActivitiesCheckIn";
 import DailyOverview from "../DailyOverview/DailyOverview";
 import EditForm from "../EditForm/EditForm";
+
 
 import "./App.css";
 
