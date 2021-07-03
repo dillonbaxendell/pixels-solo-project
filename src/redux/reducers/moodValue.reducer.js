@@ -1,9 +1,9 @@
-const moodValueReducer = (state = 1, action) => {
+const moodValueReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_MOOD' :
             return action.payload;
         case 'CLEAR_MOOD' :
-            return 1;
+            return {};
         default :
             return state;
     }

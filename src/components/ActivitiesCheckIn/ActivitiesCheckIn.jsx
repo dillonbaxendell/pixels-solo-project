@@ -38,7 +38,7 @@ function ActivitiesCheckIn() {
 
   const masterObject = {
       user_id: user.id,
-      mood: moodValue,
+      mood: moodValue.value,
       word_assoc: wordAssociations,
       activity_assoc: activityAssociations,
       relation_assoc: relationshipAssociations
@@ -83,7 +83,7 @@ function ActivitiesCheckIn() {
     <>
       <div id="activities-check-in">
         <div>
-          <h2>{moodValue}</h2>
+        <img src={moodValue.img} width="100px" height="100px"/>
         </div>
         <div>
           <h2>What Activities Were You Up To?</h2>

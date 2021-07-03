@@ -5,19 +5,15 @@ const router = express.Router();
 /**
  * POST route
  */
-router.post("/overview", (req, res) => {
+router.get("/today/:id", (req, res) => {
   // GET route code here
-  console.log("req.body", req.body);
-  const targetDate = req.body.targetDate;
-  const userID = req.body.user_id;
-  console.log("targetDate is: ", targetDate, req.body.user_id);
+  console.log("req.body", req.params.id);
+  const userID = req.params.id;
   const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, 
   "activity".activity_name, "word".word_name, "relationship".name, 
   "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
   "relationship".id AS "relationship_id"
   FROM "user"
-  JOIN "relationship"
-  ON "user".id = "relationship".user_id
   JOIN "reflection"
   ON "reflection".user_id = "user".id
   JOIN "reflection_activity"
@@ -28,10 +24,14 @@ router.post("/overview", (req, res) => {
   ON "reflection".id = "reflection_word".reflection_id
   JOIN "word"
   ON "reflection_word".word_id = "word".id
-  WHERE ("user".id = $1) AND "reflection".time = $2
+  JOIN "reflection_relationship"
+  ON "reflection".id = "reflection_relationship".reflection_id
+  JOIN "relationship"
+  ON "reflection_relationship".relationship_id = "relationship".id
+  WHERE ("user".id = $1) AND "reflection".time = 'today'
  ;`;
 
-  pool.query(queryText, [userID, targetDate])
+  pool.query(queryText, [userID])
     .then((result) => {
       console.log("what is result.rows?", result.rows);
       res.send(result.rows);
@@ -40,6 +40,46 @@ router.post("/overview", (req, res) => {
       console.log("Error in GET today in reflection router", error);
     });
 });
+
+/**
+ * POST route
+ */
+ router.get("/yesterday/:id", (req, res) => {
+  // GET route code here
+  console.log("req.body", req.params.id);
+  const userID = req.params.id;
+  const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  "activity".activity_name, "word".word_name, "relationship".name, 
+  "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
+  "relationship".id AS "relationship_id"
+  FROM "user"
+  JOIN "reflection"
+  ON "reflection".user_id = "user".id
+  JOIN "reflection_activity"
+  ON "reflection".id = "reflection_activity".reflection_id
+  JOIN "activity"
+  ON "reflection_activity".activity_id = "activity".id
+  JOIN "reflection_word"
+  ON "reflection".id = "reflection_word".reflection_id
+  JOIN "word"
+  ON "reflection_word".word_id = "word".id
+  JOIN "reflection_relationship"
+  ON "reflection".id = "reflection_relationship".reflection_id
+  JOIN "relationship"
+  ON "reflection_relationship".relationship_id = "relationship".id
+  WHERE ("user".id = $1) AND "reflection".time = 'yesterday'
+ ;`;
+
+  pool.query(queryText, [userID])
+    .then((result) => {
+      console.log("what is result.rows?", result.rows);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in GET today in reflection router", error);
+    });
+});
+
 
 /**
  * POST route

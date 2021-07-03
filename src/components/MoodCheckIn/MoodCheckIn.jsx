@@ -15,10 +15,10 @@ function MoodCheckIn() {
   const moodValue = useSelector(store => store.moodValue);
   console.log("The moodValue is:", moodValue);
 
-  const handleClick =(moodValue) => {
+  const handleClick =(mood) => {
     console.log('clicked an image');
 
-    dispatch({ type: 'SET_MOOD', payload: moodValue});
+    dispatch({ type: 'SET_MOOD', payload: mood});
   }
 
   return (
@@ -28,7 +28,7 @@ function MoodCheckIn() {
           <h2>How are you doing today?</h2>
           <div>
             {moodIcons.map( mood => {
-              return( <img value={mood.value} src={mood.img} width="75px" height="75px" onClick={() => handleClick(mood.value)}/>
+              return( <img key={mood.value} value={mood.value} src={mood.img} width="75px" height="75px" onClick={() => handleClick(mood)}/>
             )})}
             </div>
 
