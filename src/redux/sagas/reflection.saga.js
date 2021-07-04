@@ -1,8 +1,11 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
+import { useHistory } from "react-router-dom";
 
 //WORKER SAGA: will be fired on 'SUBMIT_REFLECTION'
 function* postReflection(action) {
+  const history = useHistory();
+
   try {
     let masterObject = action.payload;
     console.log("masterObject in postReflection:", masterObject);
@@ -25,6 +28,8 @@ function* postReflection(action) {
     yield put({
         type: 'CLEAR_MOOD'
     })
+
+   
 
   } catch (error) {
     console.log("Reflection POST request failed", error);

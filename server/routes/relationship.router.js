@@ -32,7 +32,9 @@ router.post('/', (req, res) => {
 
   pool.query(queryText, values)
   .then( () => {
+
       res.sendStatus(201);
+
   })
   .catch( error => {
       console.log('Error in postRelationship', error);

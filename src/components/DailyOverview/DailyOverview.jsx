@@ -9,6 +9,7 @@ import mood2 from "../../Images/MOOD2.JPEG";
 import mood3 from "../../Images/MOOD3.JPEG";
 import mood4 from "../../Images/MOOD4.JPEG";
 import mood5 from "../../Images/MOOD5.JPEG";
+import DatePicker from "react-date-picker";
 
 function DailyOverview() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function DailyOverview() {
 
   const [today, setToday] = useState([]);
   const [yesterday, setYesterday] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   const userID = useSelector((store) => store.user.id);
 
@@ -36,7 +38,7 @@ function DailyOverview() {
     }
   };
 
-  console.log(checkMood(1));
+  console.log('date selected is: ', date);
 
   useEffect(() => {
     getToday();
@@ -116,16 +118,13 @@ function DailyOverview() {
 
   return (
     <>
+      <div>
+        <DatePicker onChange={setDate} value={date} />
+      </div>
       <h2>today</h2>
       {today.map((reflection) => {
         console.log(reflection);
         return (
-          //   <Grid
-          //   container
-          //   direction="row"
-          //   justify="space-evenly"
-          //   alignItems="center"
-          // >
           <div key={reflection.id}>
             <ReflectionItem reflection={reflection} />
             <button onClick={() => handleEdit(reflection)}>Edit</button>
@@ -138,7 +137,7 @@ function DailyOverview() {
       {yesterday.map((item) => {
         return (
           <div key={item.id}>
-              <ReflectionItem reflection={item} />
+            <ReflectionItem reflection={item} />
           </div>
         );
       })}
