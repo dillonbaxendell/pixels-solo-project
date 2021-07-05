@@ -31,7 +31,7 @@ function MoodCheckIn() {
     <>
       <Grid
         container
-        direction="row"
+        direction="column"
         justify="space-evenly"
         alignItems="center"
       >
@@ -43,6 +43,7 @@ function MoodCheckIn() {
           <div>
             {moodIcons.map((mood) => {
               return (
+                <Grid item display="flex" alignItems="center">
                 <img
                   key={mood.value}
                   value={mood.value}
@@ -52,6 +53,7 @@ function MoodCheckIn() {
                   className="img"
                   onClick={() => handleClick(mood)}
                 />
+                </Grid>
               );
             })}
           </div>
