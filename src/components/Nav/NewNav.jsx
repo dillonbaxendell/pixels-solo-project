@@ -8,9 +8,13 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import HomeIcon from '@material-ui/icons/Home';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import TodayIcon from '@material-ui/icons/Today';
 import MenuIcon from '@material-ui/icons/Menu';
+import InfoIcon from '@material-ui/icons/Info';
+import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 import { Link } from "react-router-dom";
 import {useSelector} from 'react-redux';
 
@@ -73,7 +77,7 @@ export default function Nav() {
       <Link to={loginLinkData.path} style={{ color: 'black', textDecoration: 'none' }}>
         <ListItem button key="Home">
           <ListItemIcon>
-            <InboxIcon />
+            <HomeIcon />
           </ListItemIcon>
           <ListItemText primary={loginLinkData.text} />
         </ListItem>
@@ -83,7 +87,7 @@ export default function Nav() {
       <Link to="/reflection/1" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="CheckIn">
               <ListItemIcon>
-                  <InboxIcon />
+                  <DoneOutlineIcon  />
               </ListItemIcon>
               <ListItemText primary="Check-In" />
           </ListItem>
@@ -91,7 +95,7 @@ export default function Nav() {
       <Link to="/daily" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="DailyOverview">
               <ListItemIcon>
-                  <InboxIcon />
+                  <TodayIcon />
               </ListItemIcon>
               <ListItemText primary="Daily Overview" />
           </ListItem>
@@ -99,7 +103,7 @@ export default function Nav() {
       <Link to="/analysis" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="MoodAnalysis">
               <ListItemIcon>
-                  <InboxIcon />
+                  <ShowChartIcon />
               </ListItemIcon>
               <ListItemText primary="Mood Analysis" />
           </ListItem>
@@ -109,7 +113,7 @@ export default function Nav() {
         <Link to="/info" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="Info">
             <ListItemIcon>
-              <MailIcon />
+              <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="Info" />
           </ListItem>
@@ -117,7 +121,7 @@ export default function Nav() {
         <Link to="/about" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="About">
               <ListItemIcon>
-                  <MailIcon />
+                  <SentimentSatisfiedAltIcon />
               </ListItemIcon>
               <ListItemText primary="About" />
           </ListItem>
