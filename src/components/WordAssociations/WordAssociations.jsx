@@ -3,8 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'right',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+}));
+
 
 function WordAssociations() {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
 
   //Testing to see what the word associations are:
@@ -67,19 +89,23 @@ function WordAssociations() {
           }}
         />
         <button onClick={handleAddWord}>Add New Word</button>
-
+        <Paper component="ul" className={classes.root}>
         {wordList.map((word) => {
           return (
-            <div
+            <li key={word.id}>
+            <Chip
+              label={word.word_name}
+              className={classes.chip}
+              deleteIcon={<HighlightOffIcon />}
               onClick={() =>
                 handleSelect({ id: word.id, word_name: word.word_name })
               }
-              key={word.id}
             >
-              <p>{word.word_name}</p>
-            </div>
+            </Chip>
+            </li>
           );
         })}
+        </Paper>
       </div>
       <div>
         <PreviousButton />

@@ -4,11 +4,6 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 import ReflectionItem from "../ReflectionItem/ReflectionItem";
-import mood1 from "../../Images/MOOD1.JPEG";
-import mood2 from "../../Images/MOOD2.JPEG";
-import mood3 from "../../Images/MOOD3.JPEG";
-import mood4 from "../../Images/MOOD4.JPEG";
-import mood5 from "../../Images/MOOD5.JPEG";
 import DatePicker from "react-date-picker";
 
 function DailyOverview() {
@@ -21,22 +16,6 @@ function DailyOverview() {
 
   const userID = useSelector((store) => store.user.id);
 
-  const checkMood = (moodValue) => {
-    switch (moodValue) {
-      case 1:
-        return mood1;
-      case 2:
-        return mood2;
-      case 3:
-        return mood3;
-      case 4:
-        return mood4;
-      case 5:
-        return mood5;
-      default:
-        return;
-    }
-  };
 
   console.log('date selected is: ', date);
 

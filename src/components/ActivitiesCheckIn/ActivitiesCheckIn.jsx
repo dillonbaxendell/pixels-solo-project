@@ -5,10 +5,28 @@ import SubmitButton from "../SubmitButton/SubmitButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 import ActivityModal from "../ActivityModal/ActivityModal";
 import RelationshipModal from "../RelationshipModal/RelationshipModal";
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'right',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+}));
 
 function ActivitiesCheckIn() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const classes = useStyles();
 
   const user = useSelector( store => store.user)
   const wordAssociations = useSelector( store => store.wordAssociations);
@@ -39,7 +57,6 @@ function ActivitiesCheckIn() {
   const masterObject = {
       user_id: user.id,
       mood: moodValue.value,
-      mood_img: moodValue.img,
       word_assoc: wordAssociations,
       activity_assoc: activityAssociations,
       relation_assoc: relationshipAssociations
@@ -68,6 +85,10 @@ function ActivitiesCheckIn() {
     });
   };
 
+  const goToNextPage = () => {
+    history.push('/daily');
+  }
+
   const handleSubmit = () => {
       console.log('Clicked submit!');
 
@@ -76,7 +97,7 @@ function ActivitiesCheckIn() {
         payload: masterObject
     })
 
-    history.push('/daily');
+    goToNextPage();
   }
 
   return (
@@ -90,28 +111,36 @@ function ActivitiesCheckIn() {
         </div>
         <div>
           <h4>what you were doing</h4>
+          <Paper component="ul" className={classes.root}>
             {activityList.map((activity) => {
               return (
-                <div
+                <li key={activity.id}>
+                <Chip
+                  label={activity.activity_name}
+                  className={classes.chip}
                   onClick={() =>
                     selectActivity({
                       id: activity.id,
                       activity_name: activity.activity_name,
                     })
                   }
-                  key={activity.id}
                 >
-                  <p>{activity.activity_name}</p>
-                </div>
+                  </Chip>
+                  </li>
               );
             })}
+            </Paper>
           <ActivityModal />
         </div>
         <div>
           <h4>who you were with</h4>
+          <Paper component="ul" className={classes.root}>
             {relationshipList.map((relationship) => {
               return (
-                <div
+                <li key={relationship.id}>
+                  <Chip
+                  label={relationship.name}
+                  className={classes.chip}
                   onClick={() =>
                     selectRelationship({
                       id: relationship.id,
@@ -119,12 +148,12 @@ function ActivitiesCheckIn() {
                       relationship_to_user: relationship.relationship_to_user,
                     })
                   }
-                  key={relationship.id}
-                >
-                  <p>{relationship.name}</p>
-                </div>
+                  >
+                  </Chip>
+                </li>
               );
             })}
+            </Paper>
           <RelationshipModal />
         </div>
         <div>

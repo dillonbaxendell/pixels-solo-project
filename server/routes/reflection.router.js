@@ -87,7 +87,7 @@ router.get("/today/:id", (req, res) => {
 router.post("/", async (req, res) => {
   // POST route code here
   console.log("req.body:", req.body);
-
+  
   const userID = req.body.user_id;
   console.log('USER ID IS THIS', userID);
   const mood = req.body.mood;
@@ -146,6 +146,7 @@ router.post("/", async (req, res) => {
     
 
     await connection.query("COMMIT");
+
     res.sendStatus(200);
   } catch (error) {
     await connection.query("ROLLBACK");
