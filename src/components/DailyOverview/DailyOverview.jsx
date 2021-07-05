@@ -5,6 +5,7 @@ import axios from "axios";
 import { Grid } from "@material-ui/core";
 import ReflectionItem from "../ReflectionItem/ReflectionItem";
 import DatePicker from "react-date-picker";
+import Paper from "@material-ui/core/paper";
 
 function DailyOverview() {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ function DailyOverview() {
 
   const [today, setToday] = useState([]);
   const [yesterday, setYesterday] = useState([]);
+  const [dateReflections, setDateReflections] = useState([]);
   const [date, setDate] = useState(new Date());
 
   const userID = useSelector((store) => store.user.id);
@@ -20,6 +22,7 @@ function DailyOverview() {
   console.log('date selected is: ', date);
 
   useEffect(() => {
+    getDate();
     getToday();
     getYesterday();
   }, []);
@@ -79,7 +82,7 @@ function DailyOverview() {
   const getYesterday = () => {
     console.log("In getYesterday");
 
-    //axios to get feedback from database
+    //axios to get yesterday's reflectioins from database
     //send to Index.js for redux
     axios
       .get(`/api/reflection/yesterday/${userID}`)
@@ -87,7 +90,7 @@ function DailyOverview() {
         //console log response
         console.log("Response from GET yesterday: ", response.data);
 
-        //dispatch to redux
+        //set state variable
         setYesterday(response.data);
       })
       .catch((err) => {
@@ -95,10 +98,31 @@ function DailyOverview() {
       });
   }; // end getYesterday
 
+  const getDate = () => {
+    console.log('In getDate');
+
+    //axios to get the selected date's reflections
+    axios.post(`/api/reflection/date/${userID}`, date)
+    .then((response) => {
+      //console log response
+      console.log("Response from GET date: ", response.data);
+
+      setDateReflections(response.data);
+    }) 
+    .catch((err) => {
+      console.log('Error in GET date reflections:', err);
+    });
+
+  } // end getDate
+
+
   return (
     <>
       <div>
         <DatePicker onChange={setDate} value={date} />
+      </div>
+      <div>
+        
       </div>
       <h2>today</h2>
       {today.map((reflection) => {

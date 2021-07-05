@@ -97,7 +97,7 @@ function ActivitiesCheckIn() {
         payload: masterObject
     })
 
-    goToNextPage();
+   
   }
 
   return (
