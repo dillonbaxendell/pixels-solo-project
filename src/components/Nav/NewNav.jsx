@@ -96,6 +96,14 @@ export default function Nav() {
               <ListItemText primary="Daily Overview" />
           </ListItem>
       </Link>
+      <Link to="/analysis" style={{ color: 'black', textDecoration: 'none' }}>
+          <ListItem button key="MoodAnalysis">
+              <ListItemIcon>
+                  <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Mood Analysis" />
+          </ListItem>
+      </Link>
       <Divider />
       <List>
         <Link to="/info" style={{ color: 'black', textDecoration: 'none' }}>
