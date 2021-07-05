@@ -9,6 +9,10 @@ import rootReducer from './redux/reducers/_root.reducer'; // imports ./redux/red
 import rootSaga from './redux/sagas/_root.saga'; // imports ./redux/sagas/index.js
 
 import App from './components/App/App';
+import theme from './theme';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+import '@fontsource/roboto';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,8 +36,10 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
+  <ThemeProvider theme={theme} >
   <Provider store={store}>
     <App />
-  </Provider>,
+  </Provider>
+  </ThemeProvider>,
   document.getElementById('react-root'),
 );

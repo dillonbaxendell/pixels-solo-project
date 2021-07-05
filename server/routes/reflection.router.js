@@ -3,21 +3,17 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
- * POST route
+ * GET route
  */
-router.post("/overview", (req, res) => {
+router.get("/today/:id", (req, res) => {
   // GET route code here
-  console.log("req.body", req.body);
-  const targetDate = req.body.targetDate;
-  const userID = req.body.user_id;
-  console.log("targetDate is: ", targetDate, req.body.user_id);
-  const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  console.log("req.body", req.params.id);
+  const userID = req.params.id;
+  const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, "reflection".mood_img,
   "activity".activity_name, "word".word_name, "relationship".name, 
   "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
   "relationship".id AS "relationship_id"
   FROM "user"
-  JOIN "relationship"
-  ON "user".id = "relationship".user_id
   JOIN "reflection"
   ON "reflection".user_id = "user".id
   JOIN "reflection_activity"
@@ -28,10 +24,14 @@ router.post("/overview", (req, res) => {
   ON "reflection".id = "reflection_word".reflection_id
   JOIN "word"
   ON "reflection_word".word_id = "word".id
-  WHERE ("user".id = $1) AND "reflection".time = $2
+  JOIN "reflection_relationship"
+  ON "reflection".id = "reflection_relationship".reflection_id
+  JOIN "relationship"
+  ON "reflection_relationship".relationship_id = "relationship".id
+  WHERE ("user".id = $1) AND "reflection".time = 'today'
  ;`;
 
-  pool.query(queryText, [userID, targetDate])
+  pool.query(queryText, [userID])
     .then((result) => {
       console.log("what is result.rows?", result.rows);
       res.send(result.rows);
@@ -42,12 +42,52 @@ router.post("/overview", (req, res) => {
 });
 
 /**
+ * GET route
+ */
+ router.get("/yesterday/:id", (req, res) => {
+  // GET route code here
+  console.log("req.body", req.params.id);
+  const userID = req.params.id;
+  const queryText = ` SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  "activity".activity_name, "word".word_name, "relationship".name, 
+  "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
+  "relationship".id AS "relationship_id"
+  FROM "user"
+  JOIN "reflection"
+  ON "reflection".user_id = "user".id
+  JOIN "reflection_activity"
+  ON "reflection".id = "reflection_activity".reflection_id
+  JOIN "activity"
+  ON "reflection_activity".activity_id = "activity".id
+  JOIN "reflection_word"
+  ON "reflection".id = "reflection_word".reflection_id
+  JOIN "word"
+  ON "reflection_word".word_id = "word".id
+  JOIN "reflection_relationship"
+  ON "reflection".id = "reflection_relationship".reflection_id
+  JOIN "relationship"
+  ON "reflection_relationship".relationship_id = "relationship".id
+  WHERE ("user".id = $1) AND "reflection".time = 'yesterday'
+ ;`;
+
+  pool.query(queryText, [userID])
+    .then((result) => {
+      console.log("what is result.rows?", result.rows);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in GET today in reflection router", error);
+    });
+});
+
+
+/**
  * POST route
  */
 router.post("/", async (req, res) => {
   // POST route code here
   console.log("req.body:", req.body);
-
+  
   const userID = req.body.user_id;
   console.log('USER ID IS THIS', userID);
   const mood = req.body.mood;
@@ -56,17 +96,19 @@ router.post("/", async (req, res) => {
   console.log(wordAssociations);
   const activityAssociations = req.body.activity_assoc;
   const relationshipAssociations = req.body.relation_assoc;
+  const moodImg = req.body.mood_img
 
   const connection = await pool.connect();
   try {
     await connection.query("BEGIN");
-    const sqlAddReflection = `INSERT INTO "reflection" ("user_id", "time", "mood") VALUES ($1, $2, $3) RETURNING id;`;
+    const sqlAddReflection = `INSERT INTO "reflection" ("user_id", "time", "mood", "mood_img") VALUES ($1, $2, $3, $4) RETURNING id;`;
 
     //Save the result so we can get the returned value
     const result = await connection.query(sqlAddReflection, [
       userID,
       "today",
       mood,
+      moodImg
     ]);
     //Get the id from the result - will have 1 row with the id
     const reflectionID = result.rows[0].id;
@@ -104,6 +146,7 @@ router.post("/", async (req, res) => {
     
 
     await connection.query("COMMIT");
+
     res.sendStatus(200);
   } catch (error) {
     await connection.query("ROLLBACK");
