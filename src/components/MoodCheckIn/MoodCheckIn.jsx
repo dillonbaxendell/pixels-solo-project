@@ -11,11 +11,11 @@ import './MoodCheckIn.css';
 function MoodCheckIn() {
   const dispatch = useDispatch();
   const moodIcons = [
-    { value: 1, img: mood1 },
-    { value: 2, img: mood2 },
-    { value: 3, img: mood3 },
-    { value: 4, img: mood4 },
     { value: 5, img: mood5 },
+    { value: 4, img: mood4 },
+    { value: 3, img: mood3 },
+    { value: 2, img: mood2 },
+    { value: 1, img: mood1 },
   ];
 
   const moodValue = useSelector((store) => store.moodValue);
@@ -37,23 +37,23 @@ function MoodCheckIn() {
       >
       <Paper elevation={3}>
         <div id="mood-check-in">
-          <div>
+          <div id="header">
           <Typography variant="h3">How are you doing today?</Typography>
           </div>
           <div>
             {moodIcons.map((mood) => {
               return (
-                <Grid item display="flex" alignItems="center">
+                <div id="mood">
                 <img
                   key={mood.value}
                   value={mood.value}
                   src={mood.img}
-                  width="75px"
-                  height="75px"
+                  width="150px"
+                  height="150px"
                   className="img"
                   onClick={() => handleClick(mood)}
                 />
-                </Grid>
+                </div>
               );
             })}
           </div>

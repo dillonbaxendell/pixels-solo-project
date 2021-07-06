@@ -8,6 +8,8 @@ import RelationshipModal from "../RelationshipModal/RelationshipModal";
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography'
+import '../WordAssociations/WordAssociations.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,14 +105,14 @@ function ActivitiesCheckIn() {
   return (
     <>
       <div id="activities-check-in">
-        <div>
-        <img src={moodValue.img} width="100px" height="100px"/>
+        <div id="mood">
+        <img src={moodValue.img} width="150px" height="150px"/>
+        </div>
+        <div id="header">
+          <Typography variant="h4">What Activities Were You Up To?</Typography>
         </div>
         <div>
-          <h2>What Activities Were You Up To?</h2>
-        </div>
-        <div>
-          <h4>what you were doing</h4>
+          <Typography variant="h6">what you were doing</Typography>
           <Paper component="ul" className={classes.root}>
             {activityList.map((activity) => {
               return (
@@ -133,7 +135,7 @@ function ActivitiesCheckIn() {
           <ActivityModal />
         </div>
         <div>
-          <h4>who you were with</h4>
+          <Typography variant="h6">who you were with</Typography>
           <Paper component="ul" className={classes.root}>
             {relationshipList.map((relationship) => {
               return (
