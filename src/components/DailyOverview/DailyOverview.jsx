@@ -144,9 +144,7 @@ function DailyOverview() {
       {dateReflections.map((reflection) => {
         return (
           <div key={reflection.id}>
-            <ReflectionItem reflection={reflection} />
-            <button onClick={() => handleEdit(reflection)}>Edit</button>
-            <button onClick={() => handleDelete(reflection.id)}>Delete</button>
+            <ReflectionItem reflection={reflection} handleEdit={handleEdit} handleDelete={handleDelete}/>
           </div>
         );
       })}

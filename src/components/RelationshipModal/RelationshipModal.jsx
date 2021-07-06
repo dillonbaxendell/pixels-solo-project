@@ -4,6 +4,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useDispatch, useSelector } from "react-redux";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -42,7 +45,7 @@ export default function RelationshipModal() {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleSubmit = () => {
     if (name === "" || relation === '') {
       alert("Please enter a relationship or press cancel");
     } else {
@@ -56,11 +59,16 @@ export default function RelationshipModal() {
     }
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Add Relationship
-      </button>
+      <IconButton color="primary" onClick={handleOpen}>
+      <p>Add Relation</p>
+        <AddIcon />
+      </IconButton>
       <Modal
         aria-labelledby="relationship-modal"
         aria-describedby="relationship-modal"
@@ -90,7 +98,10 @@ export default function RelationshipModal() {
                 <option value="Family">Family</option>
                 <option value="Pet">Pet</option>
             </select>
-            <button onClick={handleClose}>Add Relationship</button>
+            <button onClick={handleSubmit}>Add Activity</button>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
           </div>
         </Fade>
       </Modal>

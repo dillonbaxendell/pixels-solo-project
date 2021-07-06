@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: 'auto',
     maxWidth: 700,
     minWidth: 225,
-    minHeight: 150,
+    minHeight: 200,
   },
   image: {
     width: 100,
@@ -37,17 +37,21 @@ const useStyles = makeStyles((theme) => ({
     border: 'black solid 1px'
   },
   img: {
-    margin: 'auto',
+    // margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
   },
   iconPaper: {
-      minHeight: 170,
+      minHeight: 200,
+  },
+  button: {
+      margin: 20,
+
   }
 }));
 
-export default function ReflectionItem({reflection}) {
+export default function ReflectionItem({reflection, handleEdit, handleDelete}) {
   const classes = useStyles();
 
   const checkMood = (moodValue) => {
@@ -75,6 +79,10 @@ export default function ReflectionItem({reflection}) {
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="mood" src={checkMood(reflection.mood)}/>
             </ButtonBase>
+            <Grid item className={classes.button}>
+            <button  onClick={() => handleEdit(reflection)}>Edit</button>
+            <button onClick={() => handleDelete(reflection.id)}>Delete</button>
+            </Grid>
           </Grid>
           </Paper>
           <Paper className={classes.paper}>

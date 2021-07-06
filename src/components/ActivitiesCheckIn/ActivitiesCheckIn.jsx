@@ -87,9 +87,6 @@ function ActivitiesCheckIn() {
     });
   };
 
-  const goToNextPage = () => {
-    history.push('/daily');
-  }
 
   const handleSubmit = () => {
       console.log('Clicked submit!');
@@ -98,6 +95,10 @@ function ActivitiesCheckIn() {
         type: 'SUBMIT_REFLECTION',
         payload: masterObject
     })
+
+    const timer = setTimeout(() => {
+      history.push('/daily')
+    }, 1000);
 
    
   }
