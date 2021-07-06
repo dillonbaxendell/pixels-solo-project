@@ -9,3 +9,8 @@
 .inputThree {
     color: lightgrey
 }
+
+.nextBtn {
+    
+    justify-content: flex-end;
+}

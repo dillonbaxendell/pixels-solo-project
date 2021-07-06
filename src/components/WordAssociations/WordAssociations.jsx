@@ -5,8 +5,10 @@ import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import './WordAssociations.css';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,10 +78,12 @@ function WordAssociations() {
   return (
     <>
       <div id="word-associations">
-        <img src={moodValue.img} width="100px" height="100px" />
-
-        <h2>Word Associations:</h2>
-
+        <div id="mood">
+        <img src={moodValue.img} width="150px" height="150px" />
+        </div>
+        <div id="header">
+        <Typography variant="h4">Word Associations</Typography>
+        </div>
         <input
           type="text"
           placeholder="Add a word"

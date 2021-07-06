@@ -46,8 +46,10 @@ function UserPage() {
       <div>
         <Typography className="inputThree" variant="h3">Your potential is endless</Typography>
       </div>
+      <div className="nextBtn">
       {/* <LogOutButton className="btn" /> */}
       <NextButton pageRoute="/reflection/1" />
+      </div>
     </div>
   );
 }
