@@ -80,6 +80,7 @@ router.get("/today/:id", (req, res) => {
     });
 });
 
+//This grabs the specific date from date picker
 router.post("/date/:id", (req, res) => {
   //POST route code here
   console.log("req.body in date POST:", req.body);
