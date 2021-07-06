@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: 'auto',
     maxWidth: 700,
     minWidth: 225,
+    minHeight: 150,
   },
   image: {
     width: 100,
@@ -41,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     maxHeight: '100%',
   },
+  iconPaper: {
+      minHeight: 170,
+  }
 }));
 
 export default function ReflectionItem({reflection}) {
@@ -66,7 +70,7 @@ export default function ReflectionItem({reflection}) {
   return (
     <div className={classes.root}>
         <Grid container spacing={2} alignItems="center">
-        <Paper >
+        <Paper className={classes.iconPaper}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="mood" src={checkMood(reflection.mood)}/>

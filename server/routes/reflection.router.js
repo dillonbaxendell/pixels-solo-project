@@ -80,6 +80,43 @@ router.get("/today/:id", (req, res) => {
     });
 });
 
+//This grabs the specific date from date picker
+router.post("/date/:id", (req, res) => {
+  //POST route code here
+  console.log("req.body in date POST:", req.body);
+
+  const userID = req.params.id;
+  const queryText = `SELECT "reflection".id, "reflection".mood, "reflection".time, 
+  "activity".activity_name, "word".word_name, "relationship".name, 
+  "relationship".relationship_to_user, "activity".id AS "activity_id", "word".id AS "word_id", 
+  "relationship".id AS "relationship_id"
+  FROM "user"
+  JOIN "reflection"
+  ON "reflection".user_id = "user".id
+  JOIN "reflection_activity"
+  ON "reflection".id = "reflection_activity".reflection_id
+  JOIN "activity"
+  ON "reflection_activity".activity_id = "activity".id
+  JOIN "reflection_word"
+  ON "reflection".id = "reflection_word".reflection_id
+  JOIN "word"
+  ON "reflection_word".word_id = "word".id
+  JOIN "reflection_relationship"
+  ON "reflection".id = "reflection_relationship".reflection_id
+  JOIN "relationship"
+  ON "reflection_relationship".relationship_id = "relationship".id
+  WHERE ("user".id = $1) AND "reflection".time = $2
+ ;`
+
+  pool.query(queryText, [userID, req.body.date])
+    .then((result) => {
+      console.log("result.rows in /date: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in POST date in reflection router", error);
+    })
+})
 
 /**
  * POST route
