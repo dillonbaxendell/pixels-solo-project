@@ -107,7 +107,7 @@ router.post("/date/:id", (req, res) => {
   WHERE ("user".id = $1) AND "reflection".time = $2
  ;`
 
-  pool.query(queryText, [userID, req.body])
+  pool.query(queryText, [userID, req.body.date])
     .then((result) => {
       console.log("result.rows in /date: ", result.rows);
       res.send(result.rows);

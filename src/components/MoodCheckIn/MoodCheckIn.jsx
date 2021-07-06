@@ -35,7 +35,7 @@ function MoodCheckIn() {
         justify="space-evenly"
         alignItems="center"
       >
-      <Paper eleveation={3}>
+      <Paper elevation={3}>
         <div id="mood-check-in">
           <div>
           <Typography variant="h3">How are you doing today?</Typography>

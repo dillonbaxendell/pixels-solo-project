@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import ReflectionItem from "../ReflectionItem/ReflectionItem";
 import DatePicker from "react-date-picker";
 import Paper from "@material-ui/core/paper";
+import NewCheckInButton from "../NewCheckInButton/NewCheckInButton";
 
 function DailyOverview() {
   const dispatch = useDispatch();
@@ -16,10 +17,18 @@ function DailyOverview() {
   const [dateReflections, setDateReflections] = useState([]);
   const [date, setDate] = useState(new Date());
 
+
   const userID = useSelector((store) => store.user.id);
 
+  const something = (date) => {
 
-  console.log('date selected is: ', date);
+    const dateToSend = date.substring(0, 15);
+
+    console.log(dateToSend);
+  }
+
+
+  console.log('date selected is: ', date.toString().slice(0, 15));
 
   useEffect(() => {
     getDate();
@@ -102,7 +111,7 @@ function DailyOverview() {
     console.log('In getDate');
 
     //axios to get the selected date's reflections
-    axios.post(`/api/reflection/date/${userID}`, date)
+    axios.post(`/api/reflection/date/${userID}`, {date: date.toString().slice(0, 15)})
     .then((response) => {
       //console log response
       console.log("Response from GET date: ", response.data);
@@ -144,7 +153,9 @@ function DailyOverview() {
           </div>
         );
       })}
+          <NewCheckInButton />
     </>
+
   );
 }
 
