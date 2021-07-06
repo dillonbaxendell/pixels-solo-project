@@ -5,7 +5,10 @@ import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
+import TextField from "@material-ui/core/TextField"
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import './WordAssociations.css';
@@ -84,15 +87,16 @@ function WordAssociations() {
         <div id="header">
         <Typography variant="h4">Word Associations</Typography>
         </div>
-        <input
-          type="text"
+        <div id="form">
+        <TextField
           placeholder="Add a word"
           value={word}
           onChange={(event) => {
             setWord(event.target.value);
           }}
         />
-        <button onClick={handleAddWord}>Add New Word</button>
+        <Button startIcon={<AddIcon />} variant="contained" onClick={handleAddWord}>Word</Button>
+        </div>
         <Paper component="ul" className={classes.root}>
         {wordList.map((word) => {
           return (
