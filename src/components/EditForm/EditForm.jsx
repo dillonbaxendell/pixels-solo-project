@@ -10,9 +10,10 @@ import { Grid, Typography, Paper } from "@material-ui/core";
 import './EditForm.css';
 import EditWordItem from './EditWordItem';
 import EditActivityItem from './EditActivityItem';
+import EditRelationItem from './EditRelationItem';
 import { makeStyles } from "@material-ui/core/styles";
 
-
+//Styling for chip components
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -42,29 +43,45 @@ function EditForm() {
       { value: 1, img: mood1 },
     ];
 
-
+  
+  //Grab reflection and lists from their Reducers:
   const reflection = useSelector((store) => store.editReflectionReducer);
   const activitiesList = useSelector((store) => store.activityList);
   const wordList = useSelector((store) => store.wordList);
   const relationshipList = useSelector((store) => store.relationshipList);
-  console.log(activitiesList);
 
-  //State variables
+
+  //State variables to hold our edits
   const [editActivity, setActivity] = useState({id: reflection.activity_id, activity_name: reflection.activity_name});
   const [editMood, setMood] = useState(1);
   const [editWord, setWord] = useState({id: reflection.word_id, word_name: reflection.word_name});
   const [editRelation, setRelation] = useState({id: reflection.relationship_id, name: reflection.name});
   
+  //On page load, run these things:
+  useEffect(() => {
+    //fetch the words for wordList
+    dispatch({ type: 'FETCH_WORDS' })
+    //fetch the activities for activitiesList
+    dispatch({ type: 'FETCH_ACTIVITIES' })
+    //fetch the relationships for relationshipList
+    dispatch({ type: 'FETCH_RELATIONSHIPS' })
+}, [])
+
+
+  //This is the object we will send on submit to (in our PUT request)
   const reflectionToSend = {
       activity_id: editActivity.id,
       id: reflection.id,
       mood: editMood,
-      relationship_id: editRelationID,
+      relationship_id: editRelation.id,
       word_id: editWord.id
   }
-
+  //Testing: what does our reflectionToSend look like?
   console.log('REFLECTION TO EDIT: ', reflectionToSend);
 
+  
+  //When we click submit, this will happen:
+  //INITIATES PUT request
   const handleSubmit = () => {
       console.log('clicked submit');
 
@@ -73,21 +90,7 @@ function EditForm() {
       history.push('/daily');
   }
 
-  useEffect(() => {
-      dispatch({ type: 'FETCH_WORDS' })
-      dispatch({ type: 'FETCH_RELATIONSHIPS' })
-      dispatch({ type: 'FETCH_ACTIVITIES' })
-  }, [])
 
-
-  const handleSelect = (wordObject) => {
-
-    //Sets the word associations in Redux so we can access it later
-    dispatch({
-      type: "SET_ASSOCIATIONS",
-      payload: wordObject,
-    });
-  };
 
   return (
     <>
@@ -120,7 +123,7 @@ function EditForm() {
       <Paper component="ul" className={classes.root}>
           {wordList.map((word) => {
             return (
-              <EditWordItem word={word} key={word.id} classes={classes} setWord={setWord} editWord={editWord} handleSelect={handleSelect}/>
+              <EditWordItem word={word} key={word.id} classes={classes} setWord={setWord} editWord={editWord} />
             );
           })}
         </Paper>
@@ -138,7 +141,7 @@ function EditForm() {
         </Paper>
       </div>
       <div>
-        <h3>Activity</h3>
+        <h3>Relationship</h3>
       </div>
       <div>
       <Paper component="ul" className={classes.root}>
@@ -149,22 +152,6 @@ function EditForm() {
           })}
         </Paper>
       </div>
-
-      {/* <div>
-        <label htmlFor="relationship">
-          Relationship:
-          <select
-            name="relationship"
-            placeholder={reflection.name}
-            value={editRelationID}
-            onChange={(event) => setRelationID(event.target.value)}
-          >
-              {relationshipList.map((relation) => {
-                  return <option value={relation.id} key={relation.id}>{relation.name} - {relation.relationship_to_user}</option>
-              })}
-          </select>
-        </label>
-      </div> */}
       <button onClick={handleSubmit}>SUBMIT</button>
     </>
   );

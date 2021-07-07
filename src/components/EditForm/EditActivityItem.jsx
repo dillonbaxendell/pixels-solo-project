@@ -1,7 +1,7 @@
 import Chip from "@material-ui/core/Chip";
 
 
-function ActivityItem ({activity, classes, setActivity, editActivity, handleSelect}) {
+function ActivityItem ({activity, classes, setActivity, editActivity}) {
 
     return (
         <>
