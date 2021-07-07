@@ -9,6 +9,7 @@ import mood5 from "../../Images/MOOD5.JPEG";
 import { Grid, Typography, Paper } from "@material-ui/core";
 import './EditForm.css';
 import EditWordItem from './EditWordItem';
+import EditActivityItem from './EditActivityItem';
 import { makeStyles } from "@material-ui/core/styles";
 
 
@@ -46,13 +47,13 @@ function EditForm() {
   const activitiesList = useSelector((store) => store.activityList);
   const wordList = useSelector((store) => store.wordList);
   const relationshipList = useSelector((store) => store.relationshipList);
-  console.log(wordList);
+  console.log(activitiesList);
 
   //State variables
   const [editActivity, setActivity] = useState({id: reflection.activity_id, activity_name: reflection.activity_name});
   const [editMood, setMood] = useState(1);
   const [editWord, setWord] = useState({id: reflection.word_id, word_name: reflection.word_name});
-  const [editRelationID, setRelationID] = useState(reflection.relationship_id);
+  const [editRelation, setRelation] = useState({id: reflection.relationship_id, name: reflection.name});
   
   const reflectionToSend = {
       activity_id: editActivity.id,
@@ -131,29 +132,25 @@ function EditForm() {
       <Paper component="ul" className={classes.root}>
           {activitiesList.map((activity) => {
             return (
-              <EditActivityItem activity={activity} key={activity.id} classes={classes} setWord={setWord} editWord={editWord} handleSelect={handleSelect}/>
+              <EditActivityItem activity={activity} key={activity.id} classes={classes} setActivity={setActivity} editActivity={editActivity} />
+            );
+          })}
+        </Paper>
+      </div>
+      <div>
+        <h3>Activity</h3>
+      </div>
+      <div>
+      <Paper component="ul" className={classes.root}>
+          {relationshipList.map((relation) => {
+            return (
+              <EditRelationItem relation={relation} key={relation.id} classes={classes} setRelation={setRelation} editRelation={editRelation} />
             );
           })}
         </Paper>
       </div>
 
-
       {/* <div>
-        <label htmlFor="activity">
-          Activity:
-          <select
-            name="activity"
-            placeholder={reflection.activity_name}
-            value={editActivityID}
-            onChange={(event) => setActivityID(event.target.value)}
-          >
-              {activitiesList.map((activity) => {
-                  return <option value={activity.id} key={activity.id}>{activity.activity_name}</option>
-              })}
-          </select>
-        </label>
-      </div> */}
-      <div>
         <label htmlFor="relationship">
           Relationship:
           <select
@@ -167,7 +164,7 @@ function EditForm() {
               })}
           </select>
         </label>
-      </div>
+      </div> */}
       <button onClick={handleSubmit}>SUBMIT</button>
     </>
   );

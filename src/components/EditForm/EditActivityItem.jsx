@@ -1,22 +1,19 @@
-import { useSelector } from "react-redux";
 import Chip from "@material-ui/core/Chip";
 
 
 function ActivityItem ({activity, classes, setActivity, editActivity, handleSelect}) {
 
-
-
     return (
         <>
               <li
-                key={word.id}
+                key={activity.id}
                 onClick={() => {
-                  setWord({ id: word.id, word_name: word.word_name });
+                  setActivity({ id: activity.id, activity_name: activity.word_name });
                 }}
               >
                 <Chip
-                  color={ editWord.word_name === word.word_name ? 'primary' : 'default'}
-                  label={word.word_name}
+                  color={ editActivity.activity_name === activity.activity_name ? 'primary' : 'default'}
+                  label={activity.activity_name}
                   className={classes.chip}
                 ></Chip>
               </li>
