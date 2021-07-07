@@ -23,12 +23,11 @@ function DailyOverview() {
 
   useEffect(() => {
     getDate();
-    // getToday();
-    // getYesterday();
+    
   }, []);
 
   const handleEdit = (reflectionToEdit) => {
-    console.log("clicked edit!");
+    console.log("clicked edit!", reflectionToEdit);
 
     //Save the reflectionToEdit in a reducer
     dispatch({ type: "SET_EDIT", payload: reflectionToEdit });

@@ -77,6 +77,8 @@ function WordAssociations() {
     });
   };
 
+  console.log()
+
 
 
   return (
