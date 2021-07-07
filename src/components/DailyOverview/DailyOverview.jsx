@@ -91,11 +91,13 @@ function DailyOverview() {
 
   return (
     <>
-      <div>
+      <div >
         <DatePicker onChange={setDate} value={date} />
         <button onClick={handleGoCalendar}>GO</button>
       </div>
-
+      <div>
+        <p>get an overview of your mood reflections throughout a day. Use the calendar tool above to select a date and click GO.</p>
+      </div>
     {isToday ? <h2>today</h2> : <h2>{renderDate}</h2>}
       
 

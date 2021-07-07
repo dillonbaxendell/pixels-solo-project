@@ -5,7 +5,7 @@ import mood2 from "../../Images/MOOD2.JPEG";
 import mood3 from "../../Images/MOOD3.JPEG";
 import mood4 from "../../Images/MOOD4.JPEG";
 import mood5 from "../../Images/MOOD5.JPEG";
-import { Grid, Typography, Paper } from "@material-ui/core";
+import { Container, Grid, Typography, Paper } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import './MoodCheckIn.css';
 
@@ -34,7 +34,7 @@ function MoodCheckIn() {
   };
 
   return (
-    <>
+    <Container>
       <Grid
         container
         direction="column"
@@ -44,7 +44,7 @@ function MoodCheckIn() {
       <Paper elevation={3}>
         <div id="mood-check-in">
           <div id="header">
-          <Typography variant="h3">How are you doing today?</Typography>
+          <Typography align="center" variant="h3">how are you doing today?</Typography>
           </div>
           <div>
             {moodIcons.map((mood) => {
@@ -63,12 +63,13 @@ function MoodCheckIn() {
               );
             })}
           </div>
-
+          <div className="arrows">
           <NextButton pageRoute="/reflection/2" />
+          </div>
         </div>
         </Paper>
       </Grid>
-    </>
+    </Container>
   );
 }
 

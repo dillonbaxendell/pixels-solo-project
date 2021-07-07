@@ -14,24 +14,19 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import TodayIcon from '@material-ui/icons/Today';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 import { Link } from "react-router-dom";
 import {useSelector} from 'react-redux';
+import LogOutButton from "../LogOutButton/LogOutButton";
+import { useDispatch } from 'react-redux';
 
 
-// const useStyles = makeStyles({
-//   list: {
-//     width: 250,
-//   },
-//   fullList: {
-//     width: "auto",
-//   },
-//   link: { color: 'black', textDecoration: 'none' },
-// });
 
 export default function Nav() {
 //   const classes = useStyles();
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
 
   let loginLinkData = {
@@ -66,9 +61,6 @@ export default function Nav() {
 
   const list = (anchor) => (
     <div
-    //   className={clsx(classes.list, {
-    //     [classes.fullList]: anchor === "top" || anchor === "bottom",
-    //   })}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -127,6 +119,15 @@ export default function Nav() {
           </ListItem>
         </Link>
       </List>
+      <Divider />
+      <Link onClick={() => dispatch({ type: 'LOGOUT' })} style={{ color: 'black', textDecoration: 'none' }}>
+      <ListItem button key="Logout">
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItem>
+      </Link>
 
     </div>
   );
