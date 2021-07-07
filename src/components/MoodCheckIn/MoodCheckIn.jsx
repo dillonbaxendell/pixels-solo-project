@@ -6,6 +6,7 @@ import mood3 from "../../Images/MOOD3.JPEG";
 import mood4 from "../../Images/MOOD4.JPEG";
 import mood5 from "../../Images/MOOD5.JPEG";
 import { Grid, Typography, Paper } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import './MoodCheckIn.css';
 
 function MoodCheckIn() {
@@ -19,12 +20,17 @@ function MoodCheckIn() {
   ];
 
   const moodValue = useSelector((store) => store.moodValue);
+  const history = useHistory();
   console.log("The moodValue is:", moodValue);
 
   const handleClick = (mood) => {
     console.log("clicked an image");
 
     dispatch({ type: "SET_MOOD", payload: mood });
+
+    const timer = setTimeout(() => {
+      history.push('/reflection/2')
+    }, 100);
   };
 
   return (

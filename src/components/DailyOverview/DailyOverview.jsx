@@ -55,48 +55,6 @@ function DailyOverview() {
       });
   };
 
-  // //This grabs the reflections for today to display in Daily Overview
-  // //GET Today's Reflections
-  // const getToday = () => {
-  //   console.log("In getToday");
-
-  //   //axios to get feedback from database
-  //   //send to Index.js for redux
-  //   axios
-  //     .get(`/api/reflection/today/${userID}`)
-  //     .then((response) => {
-  //       //console log response
-  //       console.log("Response from GET: ", response.data);
-
-  //       //dispatch to redux
-  //       setToday(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error in GET: ", err);
-  //     });
-  // }; // end getToday
-
-  // //This grabs the reflections for yesterday to display in Daily Overview
-  // //GET Yesterday's Reflections
-  // const getYesterday = () => {
-  //   console.log("In getYesterday");
-
-  //   //axios to get yesterday's reflectioins from database
-  //   //send to Index.js for redux
-  //   axios
-  //     .get(`/api/reflection/yesterday/${userID}`)
-  //     .then((response) => {
-  //       //console log response
-  //       console.log("Response from GET yesterday: ", response.data);
-
-  //       //set state variable
-  //       setYesterday(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error in GET yesterday: ", err);
-  //     });
-  // }; // end getYesterday
-
   const getDate = () => {
     console.log('In getDate');
 
@@ -114,6 +72,7 @@ function DailyOverview() {
 
   } // end getDate
 
+  //Calendar button to go to date selected
   const handleGoCalendar = () => {
   
     if(date.toString().slice(0, 15) === new Date().toString().slice(0, 15)) {
@@ -147,26 +106,6 @@ function DailyOverview() {
           </div>
         );
       })}
-      {/* {today.map((reflection) => {
-        console.log(reflection);
-        return (
-          <div key={reflection.id}>
-            <ReflectionItem reflection={reflection} />
-            <button onClick={() => handleEdit(reflection)}>Edit</button>
-            <button onClick={() => handleDelete(reflection.id)}>Delete</button>
-          </div> */}
-          {/* // </Grid>
-        );
-      })} */}
-      {/* <h2>yesterday</h2>
-      {yesterday.map((item) => {
-        return (
-          <div key={item.id}>
-            <ReflectionItem reflection={item} />
-          </div>
-        );
-      })} */}
-
           <NewCheckInButton />
 
     </>
