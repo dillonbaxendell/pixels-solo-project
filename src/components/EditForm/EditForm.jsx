@@ -1,38 +1,92 @@
+//Imports:
+//React
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+//Mood images
+import mood1 from "../../Images/MOOD1.JPEG"
+import mood2 from "../../Images/MOOD2.JPEG";
+import mood3 from "../../Images/MOOD3.JPEG";
+import mood4 from "../../Images/MOOD4.JPEG";
+import mood5 from "../../Images/MOOD5.JPEG";
+//Child components
+import EditWordItem from './EditWordItem';
+import EditActivityItem from './EditActivityItem';
+import EditRelationItem from './EditRelationItem';
+//Styling
+import './EditForm.css';
+import { makeStyles } from "@material-ui/core/styles";
+import { Paper, Button } from "@material-ui/core";
+
+//Styling for chip components
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "right",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+}));
+
 
 function EditForm() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const classes = useStyles();
 
+    //The Mood Icons list so we can map through it
+    const moodIcons = [
+      { value: 5, img: mood5 },
+      { value: 4, img: mood4 },
+      { value: 3, img: mood3 },
+      { value: 2, img: mood2 },
+      { value: 1, img: mood1 },
+    ];
 
+  
+  //Grab reflection and lists from their Reducers:
   const reflection = useSelector((store) => store.editReflectionReducer);
   const activitiesList = useSelector((store) => store.activityList);
   const wordList = useSelector((store) => store.wordList);
   const relationshipList = useSelector((store) => store.relationshipList);
-  console.log('word list is:', wordList);
-  console.log('activity list is:', activitiesList)
-  console.log('relationship list is:', relationshipList);
-  console.log("reflection is:", reflection);
 
-  //State variables
-  const [editActivityID, setActivityID] = useState(reflection.activity_id);
-  console.log('activity ', editActivityID);
+
+  //State variables to hold our edits
+  const [editActivity, setActivity] = useState({id: reflection.activity_id, activity_name: reflection.activity_name});
   const [editMood, setMood] = useState(1);
-  const [editWordID, setWordID] = useState(reflection.word_id);
-  const [editRelationID, setRelationID] = useState(reflection.relationship_id);
+  const [editWord, setWord] = useState({id: reflection.word_id, word_name: reflection.word_name});
+  const [editRelation, setRelation] = useState({id: reflection.relationship_id, name: reflection.name});
+  
+  //On page load, run these things:
+  useEffect(() => {
+    //fetch the words for wordList
+    dispatch({ type: 'FETCH_WORDS' })
+    //fetch the activities for activitiesList
+    dispatch({ type: 'FETCH_ACTIVITIES' })
+    //fetch the relationships for relationshipList
+    dispatch({ type: 'FETCH_RELATIONSHIPS' })
+}, [])
 
+
+  //This is the object we will send on submit to (in our PUT request)
   const reflectionToSend = {
-      activity_id: editActivityID,
+      activity_id: editActivity.id,
       id: reflection.id,
       mood: editMood,
-      relationship_id: editRelationID,
-      word_id: editWordID
+      relationship_id: editRelation.id,
+      word_id: editWord.id
   }
-
+  //Testing: what does our reflectionToSend look like?
   console.log('REFLECTION TO EDIT: ', reflectionToSend);
 
+  
+  //When we click submit, this will happen:
+  //INITIATES PUT request
   const handleSubmit = () => {
       console.log('clicked submit');
 
@@ -41,79 +95,74 @@ function EditForm() {
       history.push('/daily');
   }
 
-  useEffect(() => {
-      dispatch({ type: 'FETCH_WORDS' })
-      dispatch({ type: 'FETCH_RELATIONSHIPS' })
-      dispatch({ type: 'FETCH_ACTIVITIES' })
-  }, [])
+
 
   return (
     <>
       <div>
-        <label htmlFor="mood">
-          Mood:
-          <select
-            name="mood"
-            value={editMood}
-            placeholder={reflection.mood}
-            onChange={(event) => setMood(event.target.value)}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </label>
+        <div>
+          <h3>Mood</h3>
+        </div>
+          <div class="mood">
+            {moodIcons.map((mood) => {
+              return (
+                <div>
+                  <img
+                    key={mood.value}
+                    value={mood.value}
+                    src={mood.img}
+                    width="50px"
+                    height="50px"
+                    className="img"
+                    onClick={(event) => setMood(event.target.value)}
+                  />
+                </div>
+              )
+            })}
+          </div>
       </div>
       <div>
-        <label htmlFor="activity">
-          Activity:
-          <select
-            name="activity"
-            placeholder={reflection.activity_name}
-            value={editActivityID}
-            onChange={(event) => setActivityID(event.target.value)}
-          >
-              {activitiesList.map((activity) => {
-                  return <option value={activity.id} key={activity.id}>{activity.activity_name}</option>
-              })}
-          </select>
-        </label>
+        <h3>Word Association</h3>
       </div>
       <div>
-        <label htmlFor="word">
-          Word Association:
-          <select
-            name="word"
-            placeholder={reflection.word_name}
-            value={editWordID}
-            onChange={(event) => setWordID(event.target.value)}
-          >
-              {wordList.map((word) => {
-                  return <option value={word.id} key={word.id}>{word.word_name}</option>
-              })}
-          </select>
-        </label>
+      <Paper component="ul" className={classes.root}>
+          {wordList.map((word) => {
+            return (
+              <EditWordItem word={word} key={word.id} classes={classes} setWord={setWord} editWord={editWord} />
+            );
+          })}
+        </Paper>
       </div>
       <div>
-        <label htmlFor="relationship">
-          Relationship:
-          <select
-            name="relationship"
-            placeholder={reflection.name}
-            value={editRelationID}
-            onChange={(event) => setRelationID(event.target.value)}
-          >
-              {relationshipList.map((relation) => {
-                  return <option value={relation.id} key={relation.id}>{relation.name} - {relation.relationship_to_user}</option>
-              })}
-          </select>
-        </label>
+        <h3>Activity</h3>
       </div>
-      <button onClick={handleSubmit}>SUBMIT</button>
+      <div>
+      <Paper component="ul" className={classes.root}>
+          {activitiesList.map((activity) => {
+            return (
+              <EditActivityItem activity={activity} key={activity.id} classes={classes} setActivity={setActivity} editActivity={editActivity} />
+            );
+          })}
+        </Paper>
+      </div>
+      <div>
+        <h3>Relationship</h3>
+      </div>
+      <div>
+      <Paper component="ul" className={classes.root}>
+          {relationshipList.map((relation) => {
+            return (
+              <EditRelationItem relation={relation} key={relation.id} classes={classes} setRelation={setRelation} editRelation={editRelation} />
+            );
+          })}
+        </Paper>
+      </div>
+      <div>
+      <Button variant="contained" color="primary" onClick={handleSubmit}>SUBMIT</Button>
+      </div>
     </>
   );
 }
 
+//Export this component
 export default EditForm;

@@ -4,6 +4,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useDispatch, useSelector } from "react-redux";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -29,9 +32,9 @@ export default function ActivityModal() {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleSubmit = () => {
     if (newActivity === "") {
-      alert("Please enter an activity or press cancel");
+      alert("Please enter an activity or close this window");
     } else {
       //Adds the activity to the database and activityList (initializes POST request)
       dispatch({
@@ -49,11 +52,17 @@ export default function ActivityModal() {
     }
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Add Activity
-      </button>
+      <IconButton color="primary" onClick={handleOpen}>
+      <p>Add Activity</p>
+        <AddIcon />
+      </IconButton>
+
       <Modal
         aria-labelledby="activity-modal"
         aria-describedby="activity-modal"
@@ -75,7 +84,10 @@ export default function ActivityModal() {
               placeholder="activity name"
               onChange={(event) => setNewActivity(event.target.value)}
             />
-            <button onClick={handleClose}>Add Activity</button>
+            <button onClick={handleSubmit}>Add Activity</button>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
           </div>
         </Fade>
       </Modal>

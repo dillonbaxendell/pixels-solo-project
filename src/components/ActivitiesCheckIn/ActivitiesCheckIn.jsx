@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import '../WordAssociations/WordAssociations.css'
+import ActivityItem from "./ActivityItem.jsx";
+import RelationItem from "./RelationItem.jsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,9 +89,6 @@ function ActivitiesCheckIn() {
     });
   };
 
-  const goToNextPage = () => {
-    history.push('/daily');
-  }
 
   const handleSubmit = () => {
       console.log('Clicked submit!');
@@ -98,6 +97,10 @@ function ActivitiesCheckIn() {
         type: 'SUBMIT_REFLECTION',
         payload: masterObject
     })
+
+    const timer = setTimeout(() => {
+      history.push('/daily')
+    }, 1000);
 
    
   }
@@ -116,19 +119,7 @@ function ActivitiesCheckIn() {
           <Paper component="ul" className={classes.root}>
             {activityList.map((activity) => {
               return (
-                <li key={activity.id}>
-                <Chip
-                  label={activity.activity_name}
-                  className={classes.chip}
-                  onClick={() =>
-                    selectActivity({
-                      id: activity.id,
-                      activity_name: activity.activity_name,
-                    })
-                  }
-                >
-                  </Chip>
-                  </li>
+                <ActivityItem activity={activity} key={activity.id} classes={classes} selectActivity={selectActivity} />
               );
             })}
             </Paper>
@@ -137,22 +128,9 @@ function ActivitiesCheckIn() {
         <div>
           <Typography variant="h6">who you were with</Typography>
           <Paper component="ul" className={classes.root}>
-            {relationshipList.map((relationship) => {
+            {relationshipList.map((relation) => {
               return (
-                <li key={relationship.id}>
-                  <Chip
-                  label={relationship.name}
-                  className={classes.chip}
-                  onClick={() =>
-                    selectRelationship({
-                      id: relationship.id,
-                      name: relationship.name,
-                      relationship_to_user: relationship.relationship_to_user,
-                    })
-                  }
-                  >
-                  </Chip>
-                </li>
+                <RelationItem relation={relation} key={relation.id} classes={classes} selectRelationship={selectRelationship} />
               );
             })}
             </Paper>

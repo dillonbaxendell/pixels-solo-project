@@ -3,23 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import NextButton from "../NextButton/NextButton";
 import PreviousButton from "../PreviousButton/PreviousButton";
-import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import TextField from "@material-ui/core/TextField"
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import './WordAssociations.css';
-
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import { makeStyles } from "@material-ui/core/styles";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import "./WordAssociations.css";
+import WordItem from "../WordItem/WordItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'right',
-    flexWrap: 'wrap',
-    listStyle: 'none',
+    display: "flex",
+    justifyContent: "right",
+    flexWrap: "wrap",
+    listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
   },
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0.5),
   },
 }));
-
 
 function WordAssociations() {
   const classes = useStyles();
@@ -71,6 +69,7 @@ function WordAssociations() {
   };
 
   const handleSelect = (wordObject) => {
+
     //Sets the word associations in Redux so we can access it later
     dispatch({
       type: "SET_ASSOCIATIONS",
@@ -78,41 +77,41 @@ function WordAssociations() {
     });
   };
 
+  console.log()
+
+
+
   return (
     <>
       <div id="word-associations">
         <div id="mood">
-        <img src={moodValue.img} width="150px" height="150px" />
+          <img src={moodValue.img} width="150px" height="150px" />
         </div>
         <div id="header">
-        <Typography variant="h4">Word Associations</Typography>
+          <Typography variant="h4">Word Associations</Typography>
         </div>
         <div id="form">
-        <TextField
-          placeholder="Add a word"
-          value={word}
-          onChange={(event) => {
-            setWord(event.target.value);
-          }}
-        />
-        <Button startIcon={<AddIcon />} variant="contained" onClick={handleAddWord}>Word</Button>
+          <TextField
+            placeholder="Add a word"
+            value={word}
+            onChange={(event) => {
+              setWord(event.target.value);
+            }}
+          />
+          <Button
+            startIcon={<AddIcon />}
+            variant="contained"
+            onClick={handleAddWord}
+          >
+            Word
+          </Button>
         </div>
         <Paper component="ul" className={classes.root}>
-        {wordList.map((word) => {
-          return (
-            <li key={word.id}>
-            <Chip
-              label={word.word_name}
-              className={classes.chip}
-              deleteIcon={<HighlightOffIcon />}
-              onClick={() =>
-                handleSelect({ id: word.id, word_name: word.word_name })
-              }
-            >
-            </Chip>
-            </li>
-          );
-        })}
+          {wordList.map((word, i) => {
+            return (
+              <WordItem word={word} key={word.id} classes={classes} handleSelect={handleSelect}/>
+            );
+          })}
         </Paper>
       </div>
       <div>

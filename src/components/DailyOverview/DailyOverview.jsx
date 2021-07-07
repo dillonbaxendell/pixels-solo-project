@@ -23,12 +23,11 @@ function DailyOverview() {
 
   useEffect(() => {
     getDate();
-    // getToday();
-    // getYesterday();
+    
   }, []);
 
   const handleEdit = (reflectionToEdit) => {
-    console.log("clicked edit!");
+    console.log("clicked edit!", reflectionToEdit);
 
     //Save the reflectionToEdit in a reducer
     dispatch({ type: "SET_EDIT", payload: reflectionToEdit });
@@ -144,9 +143,7 @@ function DailyOverview() {
       {dateReflections.map((reflection) => {
         return (
           <div key={reflection.id}>
-            <ReflectionItem reflection={reflection} />
-            <button onClick={() => handleEdit(reflection)}>Edit</button>
-            <button onClick={() => handleDelete(reflection.id)}>Delete</button>
+            <ReflectionItem reflection={reflection} handleEdit={handleEdit} handleDelete={handleDelete}/>
           </div>
         );
       })}
