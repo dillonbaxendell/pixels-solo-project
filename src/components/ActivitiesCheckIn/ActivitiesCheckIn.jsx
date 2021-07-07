@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import '../WordAssociations/WordAssociations.css'
+import ActivityItem from "./ActivityItem.jsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -117,19 +118,7 @@ function ActivitiesCheckIn() {
           <Paper component="ul" className={classes.root}>
             {activityList.map((activity) => {
               return (
-                <li key={activity.id}>
-                <Chip
-                  label={activity.activity_name}
-                  className={classes.chip}
-                  onClick={() =>
-                    selectActivity({
-                      id: activity.id,
-                      activity_name: activity.activity_name,
-                    })
-                  }
-                >
-                  </Chip>
-                  </li>
+                <ActivityItem activity={activity} key={activity.id} classes={classes} selectActivity={selectActivity} />
               );
             })}
             </Paper>

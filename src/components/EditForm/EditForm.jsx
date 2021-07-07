@@ -1,17 +1,22 @@
+//Imports:
+//React
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+//Mood images
 import mood1 from "../../Images/MOOD1.JPEG"
 import mood2 from "../../Images/MOOD2.JPEG";
 import mood3 from "../../Images/MOOD3.JPEG";
 import mood4 from "../../Images/MOOD4.JPEG";
 import mood5 from "../../Images/MOOD5.JPEG";
-import { Grid, Typography, Paper } from "@material-ui/core";
-import './EditForm.css';
+//Child components
 import EditWordItem from './EditWordItem';
 import EditActivityItem from './EditActivityItem';
 import EditRelationItem from './EditRelationItem';
+//Styling
+import './EditForm.css';
 import { makeStyles } from "@material-ui/core/styles";
+import { Paper, Button } from "@material-ui/core";
 
 //Styling for chip components
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +39,7 @@ function EditForm() {
     const history = useHistory();
     const classes = useStyles();
 
-
+    //The Mood Icons list so we can map through it
     const moodIcons = [
       { value: 5, img: mood5 },
       { value: 4, img: mood4 },
@@ -98,7 +103,7 @@ function EditForm() {
         <div>
           <h3>Mood</h3>
         </div>
-          <div>
+          <div class="mood">
             {moodIcons.map((mood) => {
               return (
                 <div>
@@ -106,8 +111,8 @@ function EditForm() {
                     key={mood.value}
                     value={mood.value}
                     src={mood.img}
-                    width="100px"
-                    height="100px"
+                    width="50px"
+                    height="50px"
                     className="img"
                     onClick={(event) => setMood(event.target.value)}
                   />
@@ -152,9 +157,12 @@ function EditForm() {
           })}
         </Paper>
       </div>
-      <button onClick={handleSubmit}>SUBMIT</button>
+      <div>
+      <Button variant="contained" color="primary" onClick={handleSubmit}>SUBMIT</Button>
+      </div>
     </>
   );
 }
 
+//Export this component
 export default EditForm;
