@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { Grid, Button, Container } from "@material-ui/core";
+import { Grid, Button, Container, Typography } from "@material-ui/core";
 import ReflectionItem from "../ReflectionItem/ReflectionItem";
 import DatePicker from "react-date-picker";
 import Paper from "@material-ui/core/paper";
@@ -94,12 +94,12 @@ function DailyOverview() {
     <Container>
       <div>
         <DatePicker onChange={setDate} value={date} />
-        <Button className="datePicker" variant="contained" onClick={handleGoCalendar}>GO</Button>
+        <Button className="datePicker" color="primary" variant="contained" onClick={handleGoCalendar}>GO</Button>
       </div>
       <div>
         <p>get an overview of your mood reflections throughout a day. Use the calendar tool above to select a date and click GO.</p>
       </div>
-    {isToday ? <h2>today</h2> : <h2>{renderDate}</h2>}
+    {isToday ? <Typography variant="h4">today</Typography> : <Typography variant="h4">{renderDate}</Typography>}
       
 
       {dateReflections.map((reflection) => {
