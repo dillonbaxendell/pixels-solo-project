@@ -107,6 +107,8 @@ function WordAssociations() {
             }}
           />
           <Button
+            className="addWord"
+            color="primary"
             startIcon={<AddIcon />}
             variant="contained"
             onClick={handleAddWord}

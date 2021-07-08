@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from "@material-ui/icons/Close";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import './ActivityModal.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  header : {
+    marginBottom: 30
+  },
+  closeBtn: {
+    marginTop: 50,
+    float: 'left',
+  }
 }));
 
 export default function ActivityModal() {
@@ -60,7 +70,7 @@ export default function ActivityModal() {
   return (
     <div className="modal">
       <IconButton color="primary" onClick={handleOpen}>
-      <p>Add Activity</p>
+      <Typography variant="button">Add Activity</Typography>
         <AddIcon />
       </IconButton>
 
@@ -78,17 +88,24 @@ export default function ActivityModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="add-activity">Add Activity</h2>
-            <input
+            <div className={classes.header}>
+            <Typography variant="h4" id="add-activity">Add Activity</Typography>
+            </div>
+            <TextField
               value={newActivity}
               type="text"
               placeholder="activity name"
               onChange={(event) => setNewActivity(event.target.value)}
             />
-            <button onClick={handleSubmit}>Add Activity</button>
-            <IconButton onClick={handleClose}>
+            <Button className="modal" variant="contained" color="primary" onClick={handleSubmit}>
+              ADD
+            </Button>
+            <div >
+            <IconButton  className={classes.closeBtn} onClick={handleClose}>
               <CloseIcon />
+              <Typography variant="button">cancel</Typography>
             </IconButton>
+            </div>
           </div>
         </Fade>
       </Modal>
