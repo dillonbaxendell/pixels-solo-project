@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from "@material-ui/icons/Close";
+import './ActivityModal.css';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -57,7 +58,7 @@ export default function ActivityModal() {
   };
 
   return (
-    <div>
+    <div className="modal">
       <IconButton color="primary" onClick={handleOpen}>
       <p>Add Activity</p>
         <AddIcon />

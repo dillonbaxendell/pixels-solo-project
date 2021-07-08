@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography'
 import '../WordAssociations/WordAssociations.css'
 import ActivityItem from "./ActivityItem.jsx";
 import RelationItem from "./RelationItem.jsx";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,7 +107,7 @@ function ActivitiesCheckIn() {
   }
 
   return (
-    <>
+    <Container>
       <div id="activities-check-in">
         <div id="mood">
         <img src={moodValue.img} width="150px" height="150px"/>
@@ -123,9 +124,11 @@ function ActivitiesCheckIn() {
               );
             })}
             </Paper>
+        <div>
           <ActivityModal />
         </div>
-        <div>
+        </div>
+        <div className="relationshipList">
           <Typography variant="h6">who you were with</Typography>
           <Paper component="ul" className={classes.root}>
             {relationshipList.map((relation) => {
@@ -136,12 +139,12 @@ function ActivitiesCheckIn() {
             </Paper>
           <RelationshipModal />
         </div>
-        <div>
+        <div className="button">
           <PreviousButton />
         </div>
           <SubmitButton handleSubmit={handleSubmit}/>
       </div>
-    </>
+    </Container>
   );
 }
 
