@@ -155,7 +155,7 @@ router.post("/", async (req, res) => {
 
       console.log("wordID:", wordAssociations.id);
 
-      await connection.query(sqlAddWord, [
+    await connection.query(sqlAddWord, [
         wordAssociations.id,
         reflectionID,
       ]);

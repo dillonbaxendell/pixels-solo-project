@@ -1,55 +1,50 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import {
-  Chart,
-  LineSeries,
-  SplineSeries,
-} from '@devexpress/dx-react-chart-material-ui';
+import React from 'react';
+import {Line} from 'react-chartjs-2';
 
-const generateData = (start, end, step) => {
-  const data = [];
-  for (let i = start; i < end; i += step) {
-    data.push({ splineValue: Math.sin(i) / i, lineValue: ((i / 15) ** 2.718) - 0.2, argument: i });
-  }
+const state = {
+  labels: ['Monday', 'Tuesday', 'Wednesday',
+           'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  datasets: [
+    {
+      label: 'Rainfall',
+      fill: false,
+      lineTension: 0.5,
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(0,0,0,1)',
+      borderWidth: 2,
+      data: [65, 59, 80, 81, 56]
+    },
+    {
+      label: 'Downfall',
+      fill: false,
+      lineTension: 0.5,
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(0,0,0,1)',
+      borderWidth: 2,
+      data: [30, 67, 45, 81, 56]
+    }
+  ]
+}
 
-  return data;
-};
-
-export default class MoodAnalysis extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: generateData(2.5, 12, 0.5),
-    };
-  }
-
+export default class MoodAnalysis extends React.Component {
   render() {
-    const { data: chartData } = this.state;
-
     return (
-    <div>
-    <h2>
-        get a deeper look into your mood and anxiety triggers with this
-        analytics page
-      </h2>
-      <Paper>
-        <Chart
-          data={chartData}
-        >
-          <LineSeries
-            valueField="lineValue"
-            argumentField="argument"
-          />
-          <SplineSeries
-            valueField="splineValue"
-            argumentField="argument"
-          />
-        </Chart>
-      </Paper>
+      <div>
+        <Line
+          data={state}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
       </div>
     );
   }
 }
-
-
