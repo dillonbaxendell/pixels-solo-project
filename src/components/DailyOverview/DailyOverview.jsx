@@ -96,8 +96,8 @@ function DailyOverview() {
         <DatePicker onChange={setDate} value={date} />
         <Button className="datePicker" color="primary" variant="contained" onClick={handleGoCalendar}>GO</Button>
       </div>
-      <div>
-        <p>get an overview of your mood reflections throughout a day. Use the calendar tool above to select a date and click GO.</p>
+      <div className="subtitle">
+        <Typography variant="body2">Get an overview of your mood reflections throughout a day. Use the calendar tool above to select a date and click GO.</Typography>
       </div>
     {isToday ? <Typography variant="h4">today</Typography> : <Typography variant="h4">{renderDate}</Typography>}
       

@@ -12,6 +12,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import "./WordAssociations.css";
 import WordItem from "../WordItem/WordItem";
+import Container from "@material-ui/core/Container";
+import swal from 'sweetalert';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +55,10 @@ function WordAssociations() {
 
   //Initiates a POST to add a word and also sets the word associations
   const handleAddWord = () => {
+
+    if (word === '') {
+      swal('Oops, it looks like there is no word to add');
+    } else {
     //Adds the word to the database and wordList (initialize POST)
     dispatch({
       type: "ADD_WORD",
@@ -66,6 +73,7 @@ function WordAssociations() {
 
     //Clear input field
     setWord("");
+    }
   };
 
   const handleSelect = (wordObject) => {
@@ -82,7 +90,7 @@ function WordAssociations() {
 
 
   return (
-    <>
+    <Container>
       <div id="word-associations">
         <div id="mood">
           <img src={moodValue.img} width="150px" height="150px" />
@@ -118,7 +126,7 @@ function WordAssociations() {
         <PreviousButton />
         <NextButton pageRoute="/reflection/3" />
       </div>
-    </>
+    </Container>
   );
 }
 
