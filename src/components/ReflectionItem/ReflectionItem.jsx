@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import IconButton from "@material-ui/core/IconButton";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -8,6 +9,8 @@ import StarIcon from '@material-ui/icons/Star';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import FlareIcon from '@material-ui/icons/Flare';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -25,15 +28,17 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    // margin: 'auto',
+    marginTop: 10,
     maxWidth: 700,
-    minWidth: 225,
+    minWidth: 200,
     minHeight: 200,
+    maxHeight: 200,
   },
   image: {
     width: 100,
     height: 100,
-    margin: 20,
+    marginTop: 20,
+    marginLeft: 20,
     border: 'black solid 1px'
   },
   img: {
@@ -43,11 +48,18 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
   },
   iconPaper: {
+
       minHeight: 200,
+      maxHeight: 200,
   },
   button: {
-      margin: 20,
-
+      marginTop: 20,
+      marginLeft: 20,
+      marginRight: 20,
+      marginBottom: 20
+  },
+  content: {
+      marginTop: 20,
   }
 }));
 
@@ -80,15 +92,19 @@ export default function ReflectionItem({reflection, handleEdit, handleDelete}) {
               <img className={classes.img} alt="mood" src={checkMood(reflection.mood)}/>
             </ButtonBase>
             <Grid item className={classes.button}>
-            <button  onClick={() => handleEdit(reflection)}>Edit</button>
-            <button onClick={() => handleDelete(reflection.id)}>Delete</button>
+            <IconButton  onClick={() => handleEdit(reflection)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => handleDelete(reflection.id)}>
+              <DeleteIcon />
+            </IconButton>
             </Grid>
           </Grid>
           </Paper>
           <Paper className={classes.paper}>
           <Grid item xs={12} sm container alignItems="center">
             <Grid item xs container direction="column">
-              <Grid item xs>
+              <Grid item xs className={classes.content}>
               <ListItem button key="Activities">
               <ListItemIcon>
                   <DirectionsRunIcon />
