@@ -69,7 +69,7 @@ export default function Nav() {
       <Link to={loginLinkData.path} style={{ color: 'black', textDecoration: 'none' }}>
         <ListItem button key="Home">
           <ListItemIcon>
-            <HomeIcon />
+            <HomeIcon color="secondary"/>
           </ListItemIcon>
           <ListItemText primary={loginLinkData.text} />
         </ListItem>
@@ -79,7 +79,7 @@ export default function Nav() {
       <Link to="/reflection/1" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="CheckIn">
               <ListItemIcon>
-                  <DoneOutlineIcon  />
+                  <DoneOutlineIcon color="secondary"/>
               </ListItemIcon>
               <ListItemText primary="Check-In" />
           </ListItem>
@@ -87,7 +87,7 @@ export default function Nav() {
       <Link to="/daily" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="DailyOverview">
               <ListItemIcon>
-                  <TodayIcon />
+                  <TodayIcon color="secondary"/>
               </ListItemIcon>
               <ListItemText primary="Daily Overview" />
           </ListItem>
@@ -95,7 +95,7 @@ export default function Nav() {
       <Link to="/analysis" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="MoodAnalysis">
               <ListItemIcon>
-                  <ShowChartIcon />
+                  <ShowChartIcon color="secondary"/>
               </ListItemIcon>
               <ListItemText primary="Mood Analysis" />
           </ListItem>
@@ -105,7 +105,7 @@ export default function Nav() {
         <Link to="/info" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="Info">
             <ListItemIcon>
-              <InfoIcon />
+              <InfoIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Info" />
           </ListItem>
@@ -113,7 +113,7 @@ export default function Nav() {
         <Link to="/about" style={{ color: 'black', textDecoration: 'none' }}>
           <ListItem button key="About">
               <ListItemIcon>
-                  <SentimentSatisfiedAltIcon />
+                  <SentimentSatisfiedAltIcon color="secondary"/>
               </ListItemIcon>
               <ListItemText primary="About" />
           </ListItem>
@@ -123,7 +123,7 @@ export default function Nav() {
       <Link onClick={() => dispatch({ type: 'LOGOUT' })} style={{ color: 'black', textDecoration: 'none' }}>
       <ListItem button key="Logout">
         <ListItemIcon>
-          <ExitToAppIcon />
+          <ExitToAppIcon color="secondary"/>
         </ListItemIcon>
         <ListItemText primary="Logout" />
       </ListItem>

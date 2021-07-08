@@ -1,3 +1,6 @@
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import "@fontsource/roboto";
+
 import React, { useEffect } from "react";
 import {
   HashRouter as Router,
@@ -29,6 +32,17 @@ import MoodAnalysis from "../MoodAnalysis/MoodAnalysis";
 
 import "./App.css";
 
+const theme = createMuiTheme({
+  palette: {
+      primary: {
+          main: '#81c784'
+      },
+      secondary : {
+          main: '#519657'
+      }
+  }
+});
+
 function App() {
   const dispatch = useDispatch();
 
@@ -37,6 +51,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme} >
     <Router>
       <div>
         <Nav />
@@ -137,6 +152,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

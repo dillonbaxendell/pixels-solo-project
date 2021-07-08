@@ -69,7 +69,7 @@ export default function ActivityModal() {
 
   return (
     <div className="modal">
-      <IconButton color="primary" onClick={handleOpen}>
+      <IconButton color="secondary" onClick={handleOpen}>
       <Typography variant="button">Add Activity</Typography>
         <AddIcon />
       </IconButton>

@@ -78,7 +78,7 @@ export default function RelationshipModal() {
 
   return (
     <div className="modal">
-      <IconButton color="primary" onClick={handleOpen}>
+      <IconButton color="secondary" onClick={handleOpen}>
       <Typography variant="button">Add Relation</Typography>
         <AddIcon />
       </IconButton>

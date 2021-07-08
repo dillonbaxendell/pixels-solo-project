@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Typography from "@material-ui/core/Typography";
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -30,8 +31,8 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h1>Pixels</h1>
-      <h2>Login</h2>
+      <Typography variant="h2">Pixels</Typography>
+      <Typography variant="h4">Login</Typography>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
