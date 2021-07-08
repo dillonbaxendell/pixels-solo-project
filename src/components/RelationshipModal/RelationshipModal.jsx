@@ -5,8 +5,13 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useDispatch, useSelector } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from "@material-ui/icons/Close";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
 import './RelationshipModal.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  closeBtn: {
+    marginTop: 50,
+    float: 'left'
+  },
+  header: {
+    marginBottom: 30
+  }
 }));
 
 export default function RelationshipModal() {
@@ -67,7 +79,7 @@ export default function RelationshipModal() {
   return (
     <div className="modal">
       <IconButton color="primary" onClick={handleOpen}>
-      <p>Add Relation</p>
+      <Typography variant="button">Add Relation</Typography>
         <AddIcon />
       </IconButton>
       <Modal
@@ -84,25 +96,37 @@ export default function RelationshipModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="add-activity">Add Relationship</h2>
-            <input
+            <div className={classes.header}>
+            <Typography variant="h4" id="add-activity">Add Relationship</Typography>
+            </div>
+            <div>
+            <TextField
+              className={classes.header}
               value={name}
               type="text"
               placeholder="name"
               onChange={(event) => setName(event.target.value)}
             />
-            <select onChange={(event) => setRelation(event.target.value)}>
+            </div>
+            <div>
+            <Select  className={classes.header} native id="relation-category" onChange={(event) => setRelation(event.target.value)}>
                 <option>---SELECT---</option>
                 <option value="Friend">Friend</option>
                 <option value="Co-Worker">Co-Worker</option>
                 <option value="Partner">Partner</option>
                 <option value="Family">Family</option>
                 <option value="Pet">Pet</option>
-            </select>
-            <button onClick={handleSubmit}>Add Activity</button>
-            <IconButton onClick={handleClose}>
+            </Select>
+            </div>
+            <div>
+            <Button className="modal" variant="contained" color="primary" onClick={handleSubmit}>ADD</Button>
+            </div>
+            <div>
+            <IconButton className={classes.closeBtn} onClick={handleClose}>
               <CloseIcon />
+              <Typography variant="button">cancel</Typography>
             </IconButton>
+            </div>
           </div>
         </Fade>
       </Modal>
