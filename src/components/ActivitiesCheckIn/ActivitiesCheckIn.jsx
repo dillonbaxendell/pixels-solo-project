@@ -113,7 +113,7 @@ function ActivitiesCheckIn() {
         <img src={moodValue.img} width="150px" height="150px"/>
         </div>
         <div id="header">
-          <Typography variant="h4">What Activities Were You Up To?</Typography>
+          <Typography variant="h4">What activities were you up to?</Typography>
         </div>
         <div>
           <Typography variant="h6">what you were doing</Typography>

@@ -23,7 +23,7 @@ function LoginForm() {
         },
       });
 
-      history.push('/reflection/1');
+      history.push('/');
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }

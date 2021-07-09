@@ -31,7 +31,7 @@ function UserPage() {
 
   return (
     <div className="container">
-      <h2>Welcome, {user.first_name}!</h2>
+      <Typography variant="h5">Welcome, {user.first_name}!</Typography>
       {/* <p>Your ID is: {user.id}</p> */}
       <div>
         <Typography className="inputOne" variant="h3">

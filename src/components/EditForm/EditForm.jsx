@@ -16,7 +16,7 @@ import EditRelationItem from './EditRelationItem';
 //Styling
 import './EditForm.css';
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Button } from "@material-ui/core";
+import { Paper, Button, Container, Typography } from "@material-ui/core";
 
 //Styling for chip components
 const useStyles = makeStyles((theme) => ({
@@ -95,34 +95,39 @@ function EditForm() {
       history.push('/daily');
   }
 
+  const handleClick = (mood) => {
 
+    setMood(mood.value);
+  }
 
   return (
-    <>
+    <Container>
       <div>
         <div>
-          <h3>Mood</h3>
+          <Typography variant="h5">Mood</Typography>
         </div>
-          <div class="mood">
+          <ul class="mood">
             {moodIcons.map((mood) => {
+              console.log(mood.value)
               return (
-                <div>
+                <li
+                value={mood.value}
+                >
                   <img
                     key={mood.value}
-                    value={mood.value}
                     src={mood.img}
                     width="50px"
                     height="50px"
                     className="img"
-                    onClick={(event) => setMood(event.target.value)}
+                    onClick={() => handleClick(mood)}
                   />
-                </div>
+                </li>
               )
             })}
-          </div>
+          </ul>
       </div>
-      <div>
-        <h3>Word Association</h3>
+      <div className="header" >
+        <Typography variant="h5">Word Association</Typography>
       </div>
       <div>
       <Paper component="ul" className={classes.root}>
@@ -133,8 +138,8 @@ function EditForm() {
           })}
         </Paper>
       </div>
-      <div>
-        <h3>Activity</h3>
+      <div className="header">
+        <Typography variant="h5">Activity</Typography>
       </div>
       <div>
       <Paper component="ul" className={classes.root}>
@@ -145,8 +150,8 @@ function EditForm() {
           })}
         </Paper>
       </div>
-      <div>
-        <h3>Relationship</h3>
+      <div className="header">
+        <Typography variant="h5">Relationship</Typography>
       </div>
       <div>
       <Paper component="ul" className={classes.root}>
@@ -157,10 +162,10 @@ function EditForm() {
           })}
         </Paper>
       </div>
-      <div>
+      <div className="submit" >
       <Button variant="contained" color="primary" onClick={handleSubmit}>SUBMIT</Button>
       </div>
-    </>
+    </Container>
   );
 }
 

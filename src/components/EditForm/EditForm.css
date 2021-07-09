@@ -5,4 +5,15 @@
 
 .mood {
     display: flex;
+    list-style: none;
+}
+
+.submit {
+    float: right;
+    margin-top: 30px;
+}
+
+.header {
+    margin-top: 25px;
+    margin-bottom: 15px;
 }
