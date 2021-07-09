@@ -1,50 +1,39 @@
-import React from 'react';
-import {Line} from 'react-chartjs-2';
+import MoodChart from "./MoodChart";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const state = {
-  labels: ['Monday', 'Tuesday', 'Wednesday',
-           'Thursday', 'Friday', 'Saturday', 'Sunday'],
-  datasets: [
-    {
-      label: 'Rainfall',
-      fill: false,
-      lineTension: 0.5,
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [65, 59, 80, 81, 56]
-    },
-    {
-      label: 'Downfall',
-      fill: false,
-      lineTension: 0.5,
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [30, 67, 45, 81, 56]
-    }
-  ]
+function MoodAnalysis() {
+
+  const [totalMoodData, setTotalMoodData] = useState([]);
+
+  const getData = () => {
+    console.log("In getData");
+
+    //axios to get the count of the reflections
+    axios.get(`/api/mood/total`)
+    .then((response) => {
+      //console log response
+      console.log("Response from GET DATA: ", response.data);
+
+      setTotalMoodData(response.data);
+    })
+    .catch((err) => {
+      console.log("Error in GET DATA:", err);
+    })
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
+  console.log('totalMoodData:', totalMoodData);
+
+  return (
+    <>
+      <MoodChart moodData={totalMoodData}/>
+    </>
+  );
 }
 
-export default class MoodAnalysis extends React.Component {
-  render() {
-    return (
-      <div>
-        <Line
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Average Rainfall per month',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-      </div>
-    );
-  }
-}
+export default MoodAnalysis;

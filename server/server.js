@@ -13,6 +13,7 @@ const wordRouter = require('./routes/word.router');
 const activityRouter = require('./routes/activity.router');
 const relationshipRouter = require('./routes/relationship.router');
 const reflectionRouter = require('./routes/reflection.router');
+const moodRouter = require('./routes/mood.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/word', wordRouter);
 app.use('/api/activity', activityRouter);
 app.use('/api/relationship', relationshipRouter);
 app.use('/api/reflection', reflectionRouter);
+app.use('/api/mood', moodRouter)
 
 // Serve static files
 app.use(express.static('build'));
