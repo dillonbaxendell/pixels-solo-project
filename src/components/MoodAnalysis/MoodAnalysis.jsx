@@ -1,5 +1,6 @@
 import MoodChart from "./MoodChart";
 import ChartJS from './ChartJS';
+import LineChart from './LineChart';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -33,6 +34,7 @@ function MoodAnalysis() {
   return (
     <>
       {/* <MoodChart moodData={totalMoodData}/> */}
+      <LineChart moodData={totalMoodData} />
       <ChartJS moodData={totalMoodData}/>
     </>
   );
