@@ -1,4 +1,3 @@
-import MoodChart from "./MoodChart";
 import ChartJS from "./ChartJS";
 import LineChart from "./LineChart";
 import React, { useState, useEffect } from "react";
@@ -16,6 +15,7 @@ function MoodAnalysis() {
   const [totalMoodData, setTotalMoodData] = useState([]);
   const [todayData, setTodayData] = useState([]);
 
+  //Our Mood Icons in an array
   const moodIcons = [
     { value: 5, img: mood5 },
     { value: 4, img: mood4 },
@@ -24,6 +24,8 @@ function MoodAnalysis() {
     { value: 1, img: mood1 },
   ];
 
+  //Grabs the data for the doughnut chart
+  //Grabs all of the reflections ever made by the current user
   const getTotalData = () => {
     console.log("In getTotalData");
 
@@ -41,6 +43,8 @@ function MoodAnalysis() {
       });
   };
 
+  //Grabs the data for our line chart
+  //Grabs all of the moods from the reflections made today by the current user
   const getTodayData = () => {
     console.log("In getTodayData");
 
@@ -58,26 +62,22 @@ function MoodAnalysis() {
       });
   };
 
+  //On page load, do this:
   useEffect(() => {
     getTotalData();
     getTodayData();
   }, []);
 
-  console.log("totalMoodData:", totalMoodData);
-  console.log("todayData:", todayData);
-
-
-
-
+  //Calculates the sum for our total reflections made
   const calculateSum = (data) => {
     let sum = 0;
 
+    //For every item in the array, add it to the sum total
     for (let i = 0; i < data.length; i++) {
-      
       sum += Number(data[i].count);
     }
     return sum;
-  }
+  };
 
   return (
     <Container>
@@ -117,8 +117,10 @@ function MoodAnalysis() {
 
         <ChartJS moodData={totalMoodData} />
       </div>
-      <div>
-        <Typography align="center" variant="h5">Total Reflections Made: {calculateSum(totalMoodData)}</Typography>
+      <div style={{ marginTop: "60px" }}>
+        <Typography align="center" variant="h5">
+          Total Reflections Made: {calculateSum(totalMoodData)}
+        </Typography>
       </div>
     </Container>
   );
