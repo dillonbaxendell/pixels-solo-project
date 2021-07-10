@@ -11,6 +11,9 @@ export default function ChartJS({moodData}) {
         getFields(moodData);
       }, []);
 
+
+
+
     let output = [];
 
     const getFields = (data) => {
@@ -22,6 +25,8 @@ export default function ChartJS({moodData}) {
     
         console.log('output is:', output)
     }
+
+    console.log(getFields(moodData));
     
     const state = {
         labels: ['rad', 'happy', 'meh',
