@@ -29,8 +29,8 @@ export default function ChartJS({moodData}) {
     console.log(getFields(moodData));
     
     const state = {
-        labels: ['rad', 'happy', 'meh',
-                 'bad', 'awful'],
+        // labels: ['rad', 'happy', 'meh',
+        //          'bad', 'awful'],
         datasets: [
           {
             label: 'Mood',

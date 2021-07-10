@@ -27,30 +27,32 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(1),
-    marginTop: 10,
+    // padding: theme.spacing(1),
+    marginTop: 20,
     maxWidth: 100,
-    minWidth: 195,
+    minWidth: '60%',
     minHeight: 200,
     maxHeight: 200,
   },
   image: {
     width: 100,
     height: 100,
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 20,
     border: 'black solid 1px'
   },
   img: {
     // margin: 'auto',
-    display: 'block',
+    // display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
   },
   iconPaper: {
-
-      minHeight: 200,
-      maxHeight: 200,
+    marginTop: 20,
+    maxWidth: 100,
+    minWidth: '40%',
+    minHeight: 200,
+    maxHeight: 200,
   },
   button: {
       marginTop: 20,
