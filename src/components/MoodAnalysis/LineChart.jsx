@@ -8,29 +8,26 @@ import { useState, useEffect } from "react";
 export default function ChartJS({moodData}) {
 
     useEffect(() => {
-        getFields(moodData);
+       getFields(moodData)
       }, []);
 
 
+      let output = [];
 
+      const getFields = (data) => {
 
-    let output = [];
-
-    const getFields = (data) => {
- 
-    
         for (let i = 0; i < data.length; i++) {
-            output.push(Number(data[i].count))     
+            output.push(Number(data[i].mood))
+            
         }
-    
-        console.log('output is:', output)
-    }
 
-    console.log(getFields(moodData));
+        console.log('today output is:', output);
+      }
+
+      console.log(moodData);
     
     const state = {
-        labels: ['rad', 'happy', 'meh',
-                 'bad', 'awful'],
+
         datasets: [
           {
             backgroundColor: [
@@ -52,25 +49,45 @@ export default function ChartJS({moodData}) {
         ]
       } 
 
-      
-      console.log(output);
+    
 
 
     return (
       <div>
 
         <Line
-          data={state}
+          data={{
+              labels: ['Mood'],
+              datasets: [
+                  {
+                      label: 'your mood today',
+                      data: moodData,
+                      backgroundColor: 'white',
+                      borderColor: '#2a994d',
+                      tension: 0.2,
+                  }],
+                labels: ['', '', '', '', '', '', '', '', '', ''                  ]
+                }}
           options={{
-            title:{
-              display:true,
-              text:'Average Rainfall per month',
-              fontSize:20
+            parsing:{
+                xAxisKey: 'id',
+                yAxisKey: 'mood'
             },
-            legend:{
-              display:true,
-              position:'right'
-            }
+            scales: {
+                yAxis: {
+                    min: 1,
+                    max: 5,
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1,
+                    }
+                },
+                // xAxis: {
+                //     grid: {
+                //         color: 'red'
+                //     }
+                // }
+            },
           }}
         />
       </div>

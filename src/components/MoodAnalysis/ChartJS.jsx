@@ -33,20 +33,20 @@ export default function ChartJS({moodData}) {
                  'bad', 'awful'],
         datasets: [
           {
-            label: 'Rainfall',
+            label: 'Mood',
             backgroundColor: [
-              '#B21F00',
-              '#C9DE00',
-              '#2FDE00',
-              '#00A6B4',
-              '#6800B4'
+              '#7cd384',
+              '#9ce26e',
+              '#fcd33b',
+              '#ee8651',
+              '#e9616d'
             ],
             hoverBackgroundColor: [
-            '#501800',
-            '#4B5000',
-            '#175000',
-            '#003350',
-            '#35014F'
+            '#2a994d',
+            '#79be30',
+            '#ec9f01',
+            '#c95315',
+            '#c42430'
             ],
             data: output
           }
