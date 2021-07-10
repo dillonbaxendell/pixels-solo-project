@@ -1,61 +1,40 @@
-import * as React from 'react';
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Paper from '@material-ui/core/Paper';
+import * as React from "react";
+import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import {
   Chart,
   PieSeries,
   Title,
-} from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart';
+  Legend,
+} from "@devexpress/dx-react-chart-material-ui";
+import { Animation } from "@devexpress/dx-react-chart";
+
+export default function MoodCount({ moodData }) {
 
 
-
-const data = [
-  { region: 'Asia', val: 4119626293 },
-  { region: 'Africa', val: 1012956064 },
-  { region: 'Northern America', val: 344124520 },
-  { region: 'Latin America and the Caribbean', val: 590946440 },
-  { region: 'Europe', val: 727082222 },
-  { region: 'Oceania', val: 35104756 },
-];
-
-
-export default class MoodAnalysis extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data,
-    };
-  }
-
-
-
-
-  render() {
-    const { data: chartData } = this.state;
-
-
-    return (
-      <Container>
+  return (
+    <Container>
       <Paper>
-        <Chart
-          data={chartData}
-        >
+        <Chart data={moodData}>
           <PieSeries
-            valueField="val"
-            argumentField="region"
+            valueField="count"
+            argumentField="mood"
             innerRadius={0.6}
           />
-          <Title
-            text="The Population of Continents and Regions"
-          />
+
+
+             <Title text="Your Mood Overall" />
+             <Legend
+          orientation="horizontal"
+          itemTextPosition="right"
+          horizontalAlignment="center"
+          verticalAlignment="bottom"
+          columnCount={1} />
+                  {/* <Export enabled={true} />
+        <Series argumentField="country" valueField="medals"></Series> */}
           <Animation />
         </Chart>
       </Paper>
-      </Container>
-    );
-  }
+    </Container>
+  );
 }
