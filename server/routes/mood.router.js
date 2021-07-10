@@ -3,7 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET route
+ * grab the count of each mood for our doughnut chart
  */
 router.get('/total', (req, res) => {
   // GET route code here
@@ -23,7 +24,9 @@ router.get('/total', (req, res) => {
 
 
 /**
- * GET route template
+ * GET route
+ * grab the mood from each of the reflections made today 
+ * this data is for our line graph
  */
  router.get('/today', (req, res) => {
     // GET route code here
@@ -41,11 +44,5 @@ router.get('/total', (req, res) => {
     })
   });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
-});
 
 module.exports = router;

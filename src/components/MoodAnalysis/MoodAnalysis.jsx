@@ -3,7 +3,7 @@ import LineChart from "./LineChart";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
-import { Typography, Paper } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 //Mood images
 import mood1 from "../../Images/MOOD1.JPEG";
 import mood2 from "../../Images/MOOD2.JPEG";

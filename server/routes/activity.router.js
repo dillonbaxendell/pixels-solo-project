@@ -3,7 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET route 
+ * grab all of the activities from the activity table
  */
 router.get('/', (req, res) => {
     
@@ -20,7 +21,8 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route
+ * add a new activity to the activity list
  */
 router.post('/', (req, res) => {
   // POST route code here
