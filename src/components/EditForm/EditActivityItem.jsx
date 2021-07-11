@@ -8,11 +8,11 @@ function ActivityItem ({activity, classes, setActivity, editActivity}) {
               <li
                 key={activity.id}
                 onClick={() => {
-                  setActivity({ id: activity.id, activity_name: activity.word_name });
+                  setActivity({ id: activity.id, activity_name: activity.activity_name });
                 }}
               >
                 <Chip
-                  color={ editActivity.activity_name === activity.activity_name ? 'primary' : 'default'}
+                  color={editActivity.activity_name === activity.activity_name ? 'primary' : 'default'}
                   label={activity.activity_name}
                   className={classes.chip}
                 ></Chip>
