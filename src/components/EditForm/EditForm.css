@@ -1,4 +1,4 @@
-.img {
+img {
     border: solid black 1px;
     margin: 2px;
 }
@@ -16,4 +16,12 @@
 .header {
     margin-top: 25px;
     margin-bottom: 15px;
+}
+
+.primary {
+    border: solid black 5px;
+}
+
+.default {
+
 }

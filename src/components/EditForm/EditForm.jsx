@@ -114,11 +114,11 @@ function EditForm() {
                 value={mood.value}
                 >
                   <img
+                    className={ editMood === mood.value ? 'primary' : 'default'}
                     key={mood.value}
                     src={mood.img}
                     width="50px"
                     height="50px"
-                    className="img"
                     onClick={() => handleClick(mood)}
                   />
                 </li>
