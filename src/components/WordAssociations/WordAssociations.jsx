@@ -13,8 +13,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import "./WordAssociations.css";
 import WordItem from "../WordItem/WordItem";
 import Container from "@material-ui/core/Container";
-import swal from 'sweetalert';
-
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,29 +54,27 @@ function WordAssociations() {
 
   //Initiates a POST to add a word and also sets the word associations
   const handleAddWord = () => {
-
-    if (word === '') {
-      swal('Oops, it looks like there is no word to add');
+    if (word === "") {
+      swal("Oops, it looks like there is no word to add");
     } else {
-    //Adds the word to the database and wordList (initialize POST)
-    dispatch({
-      type: "ADD_WORD",
-      payload: word,
-    });
+      //Adds the word to the database and wordList (initialize POST)
+      dispatch({
+        type: "ADD_WORD",
+        payload: word,
+      });
 
-    //This sets the word associations for this reflection so we can grab it later
-    dispatch({
-      type: "SET_ASSOCIATIONS",
-      payload: word,
-    });
+      //This sets the word associations for this reflection so we can grab it later
+      dispatch({
+        type: "SET_ASSOCIATIONS",
+        payload: word,
+      });
 
-    //Clear input field
-    setWord("");
+      //Clear input field
+      setWord("");
     }
   };
 
   const handleSelect = (wordObject) => {
-
     //Sets the word associations in Redux so we can access it later
     dispatch({
       type: "SET_ASSOCIATIONS",
@@ -85,9 +82,7 @@ function WordAssociations() {
     });
   };
 
-  console.log()
-
-
+  console.log();
 
   return (
     <Container>
@@ -119,14 +114,29 @@ function WordAssociations() {
         <Paper component="ul" className={classes.root}>
           {wordList.map((word, i) => {
             return (
-              <WordItem word={word} key={word.id} classes={classes} handleSelect={handleSelect}/>
+              <WordItem
+                word={word}
+                key={word.id}
+                classes={classes}
+                handleSelect={handleSelect}
+              />
             );
           })}
         </Paper>
       </div>
       <div>
-        <PreviousButton />
-        <NextButton pageRoute="/reflection/3" />
+        <table style={{ float: "right" }}>
+          <thead>
+            <tr>
+              <th>
+                <PreviousButton />
+              </th>
+              <th>
+                <NextButton pageRoute="/reflection/3" />
+              </th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </Container>
   );

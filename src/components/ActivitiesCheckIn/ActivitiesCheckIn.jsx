@@ -157,10 +157,21 @@ function ActivitiesCheckIn() {
           </Paper>
           <RelationshipModal />
         </div>
-        <div className="button">
-          <PreviousButton />
-        </div>
-        <SubmitButton handleSubmit={handleSubmit} />
+        <div style={{marginTop: '50px', marginBottom: '50px'}}>
+        <table style={{ float: "right" }}>
+          <thead>
+            <tr>
+              <th>
+                <PreviousButton />
+              </th>
+              <th>
+              <SubmitButton handleSubmit={handleSubmit} />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
       </div>
     </Container>
   );
