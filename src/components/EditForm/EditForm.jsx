@@ -58,7 +58,7 @@ function EditForm() {
 
   //State variables to hold our edits
   const [editActivity, setActivity] = useState({id: reflection.activity_id, activity_name: reflection.activity_name});
-  const [editMood, setMood] = useState(1);
+  const [editMood, setMood] = useState(reflection.mood);
   const [editWord, setWord] = useState({id: reflection.word_id, word_name: reflection.word_name});
   const [editRelation, setRelation] = useState({id: reflection.relationship_id, name: reflection.name});
   
