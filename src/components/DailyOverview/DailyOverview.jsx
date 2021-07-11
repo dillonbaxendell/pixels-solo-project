@@ -13,8 +13,7 @@ function DailyOverview() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // const [today, setToday] = useState([]);
-  // const [yesterday, setYesterday] = useState([]);
+  //local state
   const [dateReflections, setDateReflections] = useState([]);
   const [date, setDate] = useState(new Date());
   const [isToday, setIsToday] = useState(true);
@@ -22,10 +21,12 @@ function DailyOverview() {
 
   const userID = useSelector((store) => store.user.id);
 
+  //On page load, do this:
   useEffect(() => {
     getDate();
   }, []);
 
+  //When the user clicks edit button:
   const handleEdit = (reflectionToEdit) => {
     console.log("clicked edit!", reflectionToEdit);
 
@@ -69,6 +70,7 @@ function DailyOverview() {
     });
   };
 
+  //POST request to grab the reflections on the selected date
   const getDate = () => {
     console.log("In getDate");
 
@@ -143,4 +145,5 @@ function DailyOverview() {
   );
 }
 
+//Export function
 export default DailyOverview;
