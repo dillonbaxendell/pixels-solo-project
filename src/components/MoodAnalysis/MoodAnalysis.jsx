@@ -66,6 +66,10 @@ function MoodAnalysis() {
   useEffect(() => {
     getTotalData();
     getTodayData();
+        // //Wait a little bit so the dispatch finishes before going to the next page
+        // const timer = setTimeout(() => {
+        //   getFields(totalMoodData);
+        // }, 1000);
   }, []);
 
   //Calculates the sum for our total reflections made
@@ -78,6 +82,22 @@ function MoodAnalysis() {
     }
     return sum;
   };
+
+
+
+
+    //FUNCTION: parses through the moodData array to get an array for the counts only
+    const getFields = (data) => {
+      let newArray = [];
+      //for each array item, push the count into the output array
+      for (let i = 0; i < data.length; i++) {
+        newArray.push(Number(data[i].count));
+      }
+      return newArray;
+    };
+
+        //A holding place for the mood counts
+        let output = getFields(totalMoodData);
 
   return (
     <Container>
@@ -115,7 +135,7 @@ function MoodAnalysis() {
           </b>
         </Typography>
 
-        <ChartJS moodData={totalMoodData} />
+        <ChartJS moodData={output} />
       </div>
       <div style={{ marginTop: "60px" }}>
         <Typography align="center" variant="h5">

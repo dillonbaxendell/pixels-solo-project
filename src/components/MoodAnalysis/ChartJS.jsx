@@ -3,24 +3,26 @@ import { Doughnut } from "react-chartjs-2";
 import { useEffect } from "react";
 
 export default function ChartJS({ moodData }) {
+
+  console.log(moodData);
   //On page load, do this:
   useEffect(() => {
     //get the new data fields by parsing through the moodData array
-    getFields(moodData);
+    // getFields(moodData);
   }, []);
 
-  //A holding place for the mood counts
-  let output = [];
+  // //A holding place for the mood counts
+  // let output = [];
 
-  //FUNCTION: parses through the moodData array to get an array for the counts only
-  const getFields = (data) => {
-    //for each array item, push the count into the output array
-    for (let i = 0; i < data.length; i++) {
-      output.push(Number(data[i].count));
-    }
+  // //FUNCTION: parses through the moodData array to get an array for the counts only
+  // const getFields = (data) => {
+  //   //for each array item, push the count into the output array
+  //   for (let i = 0; i < data.length; i++) {
+  //     output.push(Number(data[i].count));
+  //   }
 
-    console.log("output is:", output);
-  };
+  //   console.log("output is:", output);
+  // };
 
   //state for the doughnut chart features
   const state = {
@@ -41,7 +43,7 @@ export default function ChartJS({ moodData }) {
           "#c95315",
           "#c42430",
         ],
-        data: output,
+        data: moodData,
       },
     ],
   };

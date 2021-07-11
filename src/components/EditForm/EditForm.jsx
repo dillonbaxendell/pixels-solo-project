@@ -100,13 +100,15 @@ function EditForm() {
     setMood(mood.value);
   }
 
+  
+
   return (
     <Container>
       <div>
         <div>
           <Typography variant="h5">Mood</Typography>
         </div>
-          <ul class="mood">
+          <ul className="mood">
             {moodIcons.map((mood) => {
               console.log(mood.value)
               return (
