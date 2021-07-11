@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Chip from "@material-ui/core/Chip";
 
+
+//This is the chip component for the activities list
 function ActivityItem({ activity, classes, selectActivity }) {
   const selectedActivity = useSelector((store) => store.activityAssociations);
 
@@ -28,4 +30,5 @@ function ActivityItem({ activity, classes, selectActivity }) {
   );
 }
 
+//export function
 export default ActivityItem;

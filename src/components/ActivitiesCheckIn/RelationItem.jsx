@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Chip from "@material-ui/core/Chip";
 
+//This is the chip component for the relationship list in Activities Check In
 function RelationItem({ relation, classes, selectRelationship }) {
-  const selectedRelation = useSelector((store) => store.relationshipAssociations);
-
+  const selectedRelation = useSelector(
+    (store) => store.relationshipAssociations
+  );
 
   return (
     <>
@@ -30,4 +32,5 @@ function RelationItem({ relation, classes, selectRelationship }) {
   );
 }
 
+//export function
 export default RelationItem;
