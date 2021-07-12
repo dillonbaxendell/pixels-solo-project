@@ -92,7 +92,10 @@ function EditForm() {
 
       dispatch({ type: 'EDIT_REFLECTION', payload: reflectionToSend })
 
-      history.push('/daily');
+          //Wait a little bit so the dispatch finishes before going to the next page
+    const timer = setTimeout(() => {
+      history.push("/daily");
+    }, 1000);
   }
 
   const handleClick = (mood) => {

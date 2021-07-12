@@ -32,6 +32,7 @@ router.post("/date/:id", (req, res) => {
   JOIN "relationship"
   ON "reflection_relationship".relationship_id = "relationship".id
   WHERE ("user".id = $1) AND "reflection".time = $2
+  ORDER BY "reflection".id DESC
  ;`
 
   pool.query(queryText, [userID, req.body.date])
