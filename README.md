@@ -12,7 +12,8 @@ Who were you with?
 
 These questions can help inform you how people and activities influence your mood through trends and analysis. 
 
-Check out this app on Heroku
+Check out this app on Heroku here:
+https://still-fortress-20518.herokuapp.com/
 
 ## Screen Shot
 
