@@ -1,4 +1,4 @@
-import wordAssociationsReducer from "./wordAssociations.reducer";
+import wordAssociationsReducer from "../../src/redux/reducers/wordAssociations.reducer";
 
 describe('WORD ASSOCIATIONS REDUCER TESTS', () => {
 

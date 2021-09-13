@@ -8,7 +8,7 @@ const router = express.Router();
  */
 router.get("/", (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "word";`;
+  const queryText = `SELECT * FROM "word" LIMIT 20;`;
 
   pool
     .query(queryText)

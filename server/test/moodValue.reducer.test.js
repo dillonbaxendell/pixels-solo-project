@@ -1,4 +1,4 @@
-import moodValueReducer from "./moodValue.reducer";
+import moodValueReducer from "../../src/redux/reducers/moodValue.reducer";
 
 
 describe('MOOD VALUE REDUCER TESTS', () => {

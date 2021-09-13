@@ -1,4 +1,4 @@
-import relationshipListReducer from "./relationshipList.reducer";
+import relationshipListReducer from "../../src/redux/reducers/relationshipList.reducer";
 
 
 describe('RELATIONSHIP LIST REDUCER TESTS', () => {

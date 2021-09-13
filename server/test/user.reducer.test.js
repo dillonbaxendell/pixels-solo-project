@@ -1,4 +1,4 @@
-import userReducer from "./user.reducer";
+import userReducer from "../../src/redux/reducers/user.reducer";
 
 //test SET_USER
 //test UNSET_USER

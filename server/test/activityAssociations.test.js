@@ -1,4 +1,4 @@
-import activityAssociationsReducer from "./activityAssociations.reducer";
+import activityAssociationsReducer from "../../src/redux/reducers/activityAssociations.reducer";
 
 
 describe('ACTIVITY ASSOCIATIONS REDUCER TESTS', () => {

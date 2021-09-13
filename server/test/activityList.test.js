@@ -1,4 +1,4 @@
-import activityListReducer from "./activityList.reducer";
+import activityListReducer from "../../src/redux/reducers/activityList.reducer";
 
 
 describe('ACTIVITY LIST REDUCER TESTS', () => {

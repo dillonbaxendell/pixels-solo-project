@@ -1,4 +1,4 @@
-import editReflectionReducer from "./edit.reflection.reducer";
+import editReflectionReducer from "../../src/redux/reducers/edit.reflection.reducer";
 
 
 describe('EDIT REFLECTION REDUCER TESTS', () => {

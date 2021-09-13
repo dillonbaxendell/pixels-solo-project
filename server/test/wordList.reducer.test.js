@@ -1,4 +1,4 @@
-import wordListReducer from "./wordList.reducer";
+import wordListReducer from "../../src/redux/reducers/wordList.reducer";
 
 describe('WORD LIST REDUCER TESTS', () => {
 

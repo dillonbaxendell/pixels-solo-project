@@ -1,4 +1,4 @@
-import relationshipAssociationsReducer from "./relationshipAssociations.reducer";
+import relationshipAssociationsReducer from "../../src/redux/reducers/relationshipAssociations.reducer";
 
 describe('USER REDUCER TESTS', () => {
 
