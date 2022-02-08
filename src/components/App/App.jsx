@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "@fontsource/roboto";
 
 import React, { useEffect } from "react";
@@ -31,7 +31,7 @@ import MoodAnalysis from "../MoodAnalysis/MoodAnalysis";
 
 import "./App.css";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#81c784",
